@@ -10,6 +10,16 @@ import fb from '$lib/assets/sosmed/fb.svg';
 import tiktok from '$lib/assets/sosmed/tiktok.svg';
 import yt from '$lib/assets/sosmed/yt.svg';
 
+export const PackageMenu = [
+    {
+        value: 'teacher',
+        label: 'Good for Teaching'
+    }, {
+        value: 'student',
+        label: 'Learn and look closer'
+    }
+]
+
 export const Social = [
     {
         title: 'Instagram',
@@ -46,6 +56,9 @@ export const HeadMenu = [
     {
         to: '/login',
         title: 'Keluar'
+    }, {
+        to: '/dashboard',
+        title: 'Dashboard'
     }
 ];
 
