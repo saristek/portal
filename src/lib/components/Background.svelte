@@ -1,7 +1,6 @@
 <script>
 	import grid from '$lib/assets/grid.svg';
 	import { toImageUrl } from '$lib/utils';
-	import { base } from '$app/paths';
 </script>
 
 <img
