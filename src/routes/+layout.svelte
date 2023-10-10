@@ -1,9 +1,7 @@
 <script lang="ts">
-	import '../app.css';
+	import '../app.postcss';
 	import { fly } from 'svelte/transition';
 	import { page } from '$app/stores';
-	import Header from '$lib/components/Header';
-	import Navbar from '$lib/components/Navbar';
 	import Layout from '$lib/components/Layout.svelte';
 
 	export let data;
@@ -14,7 +12,6 @@
 </svelte:head>
 
 <Layout>
-	<Header />
 	{#key data.currentPath}
 		<main
 			class="flex-1 grid w-auto"
@@ -24,5 +21,4 @@
 			<slot />
 		</main>
 	{/key}
-	<Navbar />
 </Layout>

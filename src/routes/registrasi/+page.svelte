@@ -9,8 +9,9 @@
 	let radioValue: string;
 </script>
 
-<section class="my-4 m-auto p-8 ring-1 ring-gray-900/5 sm:rounded-xl sm:shadow-xl sm:px-10">
-	<div class="mx-auto max-w-md">
+<section class="container">
+	<div class="h-full p-4 sm:p-8 mx-auto max-w-lg">
+		<h1 class="font-bold my-10 text-center sm:text-left text-xl">Registrasi akun wifi</h1>
 		<form action="" method="post">
 			<h3 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">
 				Who are you ? Feel free to fill these out!

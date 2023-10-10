@@ -85,7 +85,7 @@
 				<div>
 					<a href="/registrasi">
 						<button class="w-full text-white p-2 bg-blue-200 hover:bg-blue-400 rounded-lg"
-							>belum punya akun ?</button
+							>belum punya akun wifi?</button
 						>
 					</a>
 				</div>
