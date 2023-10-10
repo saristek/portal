@@ -14,7 +14,7 @@
 <Layout>
 	{#key data.currentPath}
 		<main
-			class="flex-1 grid w-auto bg-gray-100"
+			class="flex-1 grid w-auto bg-gray-100 overflow-y-scroll"
 			in:fly={{ x: -30, duration: 200, delay: 150 }}
 			out:fly={{ x: -30, duration: 150 }}
 		>
