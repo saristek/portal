@@ -11,7 +11,9 @@
 	<!-- <Background /> -->
 	<div class="absolute inset-0 flex flex-col">
 		<Header />
-		<slot />
+		<div class="flex-1 overflow-hidden flex flex-col">
+			<slot />
+		</div>
 		<Navbar />
 	</div>
 </div>

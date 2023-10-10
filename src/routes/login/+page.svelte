@@ -82,12 +82,24 @@
 						value="masuk"
 					/>
 				</form>
-				<div>
+				<div class="flex flex-col">
 					<a href="/registrasi">
 						<button class="w-full text-white p-2 bg-blue-200 hover:bg-blue-400 rounded-lg"
 							>belum punya akun wifi?</button
 						>
 					</a>
+					<!-- {#if true}
+						{`$(if error)`}
+						<p class="w-full py-1 bg-red-200 text-white text-center my-2 rounded-lg">error</p>
+						{`$(endif)`}
+					{/if} -->
+					<!-- {`$(if trial == 'yes')`}
+					<a
+						class="w-full py-1 bg-orange-200 hover:bg-orange-300 text-white text-center my-2 rounded-lg"
+						href="https://10.10.10.1/$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)"
+						>try use trial ? click here</a
+					>
+					{`$(endif)`} -->
 				</div>
 			</div>
 			<div class="flex justify-evenly items-center space-x-4 pt-2 leading-7">

@@ -16,6 +16,7 @@ export async function load() {
             mac: `$(mac-esc)`
         },
         opt: {
+            linkTrial: `$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)`,
             error: `$(error)`,
             trial: `$(trial)`,
             // isPop: true
