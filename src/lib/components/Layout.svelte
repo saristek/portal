@@ -9,7 +9,7 @@
 <!-- min-h-screen flex flex-col justify-between -->
 <div class="relative h-screen mx-auto max-w-3xl">
 	<!-- <Background /> -->
-	<div class="absolute inset-0 flex flex-col md:my-4 md:my-0">
+	<div class="absolute inset-0 flex flex-col">
 		<Header />
 		<slot />
 		<Navbar />
