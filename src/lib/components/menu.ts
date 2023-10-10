@@ -1,6 +1,6 @@
 import IconHome__SvelteComponent_ from "./Svg/IconHome.svelte";
 import IconBookmark__SvelteComponent_ from "./Svg/IconBookmark.svelte";
-import IconPencarian__SvelteComponent_ from "./Svg/IconPencarian.svelte";
+import IconHotspot__SvelteComponent_ from "./Svg/IconHotspot.svelte";
 import IconPengaturan__SvelteComponent_ from "./Svg/IconPengaturan.svelte";
 import IconStudent__SvelteComponent_ from "./Svg/IconStudent.svelte";
 // import IconTambah__SvelteComponent_ from "./Svg/IconTambah.svelte";
@@ -42,50 +42,35 @@ export const Social = [
 
 export const HeadMenu = [
     {
-        to: '/login',
-        title: 'Home'
+        to: '/logout',
+        title: 'logout'
     },
-    {
-        to: '/bookmark',
-        title: 'Bookmark'
-    },
-    {
-        to: '/nemu',
-        title: 'Kelangan'
-    },
-    {
-        to: '/login',
-        title: 'Keluar'
-    }, {
-        to: '/dashboard',
-        title: 'Dashboard'
-    }
 ];
 
 export const NavMenu = [
     {
         icon: IconHome__SvelteComponent_,
         title: 'Home',
-        to: '/login'
+        to: '/'
     },
     {
         icon: IconBookmark__SvelteComponent_,
-        title: 'Bookmark',
-        to: '/bookmark'
+        title: 'Sekolah',
+        to: '/school'
     },
     {
-        icon: IconPencarian__SvelteComponent_,
-        title: 'Temu Pek',
-        to: '/nemu'
+        icon: IconHotspot__SvelteComponent_,
+        title: 'Hotspot',
+        to: '/login'
     },
     {
         icon: IconStudent__SvelteComponent_,
-        title: 'Tambah',
-        to: '/kesiswaan'
+        title: 'Class',
+        to: '/kelas'
     },
     {
         icon: IconPengaturan__SvelteComponent_,
-        title: 'Pengaturan',
-        to: '/setting'
+        title: 'User',
+        to: '/user'
     }
 ];

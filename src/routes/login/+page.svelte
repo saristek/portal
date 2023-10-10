@@ -8,12 +8,12 @@
 
 	console.log(data.link.login);
 
-	type Data = {
+	type IForm = {
 		username: string;
 		password: string;
 	};
 
-	let form: Data = {
+	let form: IForm = {
 		username: '',
 		password: ''
 	};
@@ -77,7 +77,7 @@
 						bind:value={form.password}
 					/>
 					<input
-						class="text-white mt-2 sm:mt-auto hover:bg-blue-500 text-black bg-blue-400 p-2 rounded-md"
+						class="text-white mt-2 sm:mt-auto hover:bg-blue-500 bg-blue-400 p-2 rounded-md"
 						type="submit"
 						value="masuk"
 					/>
