@@ -1,5 +1,6 @@
 export async function load() {
     return {
+        title: "Login",
         chap: {
             id: `$(chap-id)`,
             ch: `$(chap-challenge)`
