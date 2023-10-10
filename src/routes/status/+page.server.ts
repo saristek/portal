@@ -1,5 +1,6 @@
 export async function load() {
     return {
+        title: "Hotspot Terhubung",
         system: {
             ip: `$(ip)`,
             byteIn: `$(bytes-in-nice)`,
