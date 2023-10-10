@@ -18,7 +18,7 @@ $(endif)
 				<p class="text-lg font-bold">
 					selamat datang <span class="text-blue-400">{data.auth.user}</span>
 				</p>
-				<p class="text-sm">id perangkat anda: {data.auth.mac}</p>
+				<p class="text-sm">id perangkat anda: {data.auth.mac.replaceAll('%3A', '-')}</p>
 			</div>
 		</div>
 
