@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-11T01:32:43.785Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="ix2SuPJQthpZDqotANxn" version="22.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-11T01:33:09.158Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="BiQQNdJIeo35sN1ctcnp" version="22.0.4" type="github">
   <diagram name="Halaman-1" id="TxN-kL1bxHS-qyeHNueX">
     <mxGraphModel dx="1114" dy="610" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -54,6 +54,12 @@
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-25" value="kehadiran" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="414" y="340" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-28" value="kelola asset" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="360" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-29" value="data mapel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="400" width="70" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
