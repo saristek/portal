@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-11T03:03:03.528Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="Y-xV5HG-JfKj11h08Mkb" version="22.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-11T03:03:25.710Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="M-C_ks7cG5-vMRUAkZDE" version="22.0.4" type="github">
   <diagram name="Halaman-1" id="TxN-kL1bxHS-qyeHNueX">
     <mxGraphModel dx="880" dy="504" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -85,6 +85,9 @@
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-28" value="kelola asset" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="175" y="270" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-183" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-29" target="PeeLNKL8KS9F9H26MRFx-17">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-29" value="data mapel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="175" y="170" width="70" height="20" as="geometry" />
@@ -320,7 +323,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-149" value="pantau presensi" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="380" y="200" width="100" height="20" as="geometry" />
+          <mxGeometry x="358" y="200" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-150" value="kas" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="791" y="240" width="46" height="20" as="geometry" />
@@ -376,7 +379,7 @@
           <mxGeometry x="318" y="120" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-169" value="portal dan wifi" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="650" y="230" width="82.5" height="20" as="geometry" />
+          <mxGeometry x="590" y="230" width="82.5" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
