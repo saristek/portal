@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-11T01:33:49.725Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="j5IsfNuTQoKpes-CEozs" version="22.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-11T01:37:06.443Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="9YzPW9jFPMXOR_VWvqFN" version="22.0.4" type="github">
   <diagram name="Halaman-1" id="TxN-kL1bxHS-qyeHNueX">
     <mxGraphModel dx="1114" dy="610" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -22,11 +22,20 @@
         <mxCell id="PeeLNKL8KS9F9H26MRFx-7" value="error" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="320" y="630" width="40" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-8" target="PeeLNKL8KS9F9H26MRFx-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-8" target="PeeLNKL8KS9F9H26MRFx-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-8" target="PeeLNKL8KS9F9H26MRFx-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-8" target="PeeLNKL8KS9F9H26MRFx-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-8" value="dapodik/cms" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="160" y="170" width="140" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="PeeLNKL8KS9F9H26MRFx-9" value="role" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="210" y="230" width="40" height="30" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-15" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="65" y="270" width="330" height="20" as="geometry" />
@@ -44,22 +53,28 @@
           <mxGeometry x="290" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-17" value="mapel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="350" y="340" width="45" height="30" as="geometry" />
+          <mxGeometry x="350" y="340" width="45" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-23" value="siswa" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="405" y="270" width="45" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-24" value="iuran" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="500" y="340" width="46" height="30" as="geometry" />
+          <mxGeometry x="405" y="370" width="46" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-25" value="kehadiran" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="414" y="340" width="70" height="30" as="geometry" />
+          <mxGeometry x="405" y="340" width="70" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-28" value="kelola asset" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="360" width="80" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-29" value="data mapel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="120" y="400" width="70" height="20" as="geometry" />
+          <mxGeometry x="120" y="390" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-30" value="tiket masuk kelas" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="340" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.6;entryY=0.05;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-8" target="PeeLNKL8KS9F9H26MRFx-11">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
