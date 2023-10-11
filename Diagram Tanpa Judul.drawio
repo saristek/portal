@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-10-11T02:13:58.334Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="cCbanwiZCTPUmdrrewqW" version="22.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-11T02:24:09.009Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="O2TO161fn3TSGoWN4fKW" version="22.0.4" type="github">
   <diagram name="Halaman-1" id="TxN-kL1bxHS-qyeHNueX">
-    <mxGraphModel dx="928" dy="508" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="815" dy="467" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -111,6 +111,52 @@
         </mxCell>
         <mxCell id="PeeLNKL8KS9F9H26MRFx-58" value="" style="ellipse;whiteSpace=wrap;html=1;fillStyle=dashed;fillColor=#333333;strokeColor=default;dashed=1;dashPattern=8 8;gradientColor=none;shadow=0;strokeWidth=2;fillOpacity=20;" vertex="1" parent="1">
           <mxGeometry x="358" y="425" width="320" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-60">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="889.9999999999998" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-60" value="alur siswa" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="190" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-76">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="849.9999999999998" y="330" as="sourcePoint" />
+            <mxPoint x="810" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-71" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-76" target="PeeLNKL8KS9F9H26MRFx-70">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="889.9999999999998" y="360" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-68" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-65" target="PeeLNKL8KS9F9H26MRFx-67">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-65" value="block wifi dan portal" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-67" value="tiket terlambat" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-73" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-70" target="PeeLNKL8KS9F9H26MRFx-72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-75" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PeeLNKL8KS9F9H26MRFx-70" target="PeeLNKL8KS9F9H26MRFx-74">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-70" value="akses wifi dan portal" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-72" value="akses wifi" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-74" value="akses portal" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PeeLNKL8KS9F9H26MRFx-76" value="presensi 06.45 - 07.00" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="300" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
