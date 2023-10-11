@@ -1,6 +1,8 @@
-<script>
-	import { base } from '$app/paths';
+<script lang="ts">
+	import type { ISiswa } from '$lib/types';
 	import { HeadMenu, Social } from '../menu';
+
+	export let hasil: ISiswa;
 </script>
 
 <!-- hidden md:block -->
@@ -18,11 +20,12 @@
 			{/each}
 		</div>
 		<div class="hidden sm:flex">
-			{#each HeadMenu as item}
+			<a href="/login" class="p-2 text-white hover:text-black hover:bg-red-200">{hasil.nama}</a>
+			<!-- {#each HeadMenu as item}
 				<a href={base + item.to} class="p-2 text-white hover:text-black hover:bg-red-200"
 					>{item.title}</a
 				>
-			{/each}
+			{/each} -->
 		</div>
 	</div>
 </nav>

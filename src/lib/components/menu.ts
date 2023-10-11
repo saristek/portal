@@ -42,8 +42,8 @@ export const Social = [
 
 export const HeadMenu = [
     {
-        to: '/logout',
-        title: 'logout'
+        to: '/login',
+        title: 'Login'
     },
 ];
 

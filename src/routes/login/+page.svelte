@@ -45,9 +45,8 @@
 <section class="m-auto p-4 ring-1 ring-gray-900/5 sm:rounded-xl sm:shadow-xl sm:px-10">
 	<div class="mx-auto max-w-md">
 		<div class="pt-6 flex flex-col md:flex-row space-y-4 md:space-x-4 justify-center items-center">
-			<img src={base + logo} class="h-16 sm:h-20" alt="Sransa" />
 			<div class="text-xl sm:text-2xl font-semibold text-center flex flex-col mx-auto">
-				<p>Selamat Datang di Portal Digital SMP N 1 Srandakan</p>
+				<b class="mb-2">Login Hotspot</b><p>SMP N 1 Srandakan</p>
 			</div>
 		</div>
 		<div class="flex flex-col justify-between divide-y divide-gray-300/50">
@@ -83,7 +82,7 @@
 					/>
 				</form>
 				<div class="flex flex-col">
-					<a href="/registrasi">
+					<a href="/activation">
 						<button class="w-full text-white p-2 bg-blue-200 hover:bg-blue-400 rounded-lg"
 							>belum punya akun wifi?</button
 						>

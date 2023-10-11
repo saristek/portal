@@ -11,7 +11,7 @@
 
 <section class="container">
 	<div class="h-full p-4 sm:p-8 mx-auto max-w-lg">
-		<h1 class="font-bold my-10 text-center sm:text-left text-xl">Registrasi akun wifi</h1>
+		<h1 class="font-bold my-10 text-center sm:text-left text-xl">Aktivasi akun wifi</h1>
 		<form action="" method="post">
 			<h3 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">
 				Who are you ? Feel free to fill these out!
@@ -45,7 +45,7 @@
 					autocomplete="tel"
 					required
 				/>
-				<button class="p-2 bg-red-300 rounded-lg" type="submit"
+				<button class="p-2 bg-red-300 hover:bg-red-400 rounded-lg" type="submit"
 					>{`daftar sebagai ${radioValue == 'teacher' ? 'pengajar' : 'siswa'}`}</button
 				>
 			</div>

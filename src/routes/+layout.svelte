@@ -3,6 +3,7 @@
 	import { fly } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import Layout from '$lib/components/Layout.svelte';
+	import type { ISiswa } from '$lib/types';
 
 	export let data;
 </script>
@@ -11,7 +12,7 @@
 	<title>{$page.data.title ?? 'Portal Sransa | by Saristek'}</title>
 </svelte:head>
 
-<Layout>
+<Layout coba={data.siswa[0]}>
 	{#key data.currentPath}
 		<main
 			class="flex-1 grid w-auto bg-gray-100 overflow-y-scroll"
