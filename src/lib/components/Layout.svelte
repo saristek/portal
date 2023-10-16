@@ -1,9 +1,7 @@
 <script lang="ts">
-	import type { ISiswa } from '$lib/types';
 	import Header from './Header';
 	import Navbar from './Navbar';
 
-	export let coba: ISiswa;
 	// import Background from './Background.svelte';
 </script>
 
@@ -12,7 +10,7 @@
 <div class="relative h-screen mx-auto max-w-3xl">
 	<!-- <Background /> -->
 	<div class="absolute inset-0 flex flex-col">
-		<Header hasil={coba} />
+		<Header />
 		<div class="flex-1 overflow-hidden flex flex-col">
 			<slot />
 		</div>
