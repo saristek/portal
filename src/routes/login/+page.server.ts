@@ -1,25 +1,19 @@
-export async function load() {
+import { redirect } from "@sveltejs/kit";
+import type { PageServerLoad } from "./$types"
+
+export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
+    const base = {
+        title: "LPD | Layanan Portal Digital"
+    }
+
+    const session = await getSession()
+
+    if (session) {
+        throw redirect(303, '/account')
+    }
+
     return {
-        title: "Login",
-        chap: {
-            id: `$(chap-id)`,
-            ch: `$(chap-challenge)`
-        },
-        link: {
-            login: `$(link-login-only)`,
-            orig: `$(link-orig)`,
-            esc: `$(link-orig-esc)`
-        },
-        auth: {
-            user: `$(username)`,
-            pass: `$(password)`,
-            mac: `$(mac-esc)`
-        },
-        opt: {
-            linkTrial: `$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)`,
-            error: `$(error)`,
-            trial: `$(trial)`,
-            // isPop: true
-        }
+        ...base,
+        url: url.origin
     }
 }

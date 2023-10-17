@@ -6,10 +6,13 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
+			// resolve ssr middleware
+			// hooks.server.ts
 			supabase: SupabaseClient
 			getSession(): Promise<Session | null>
 		}
 		interface PageData {
+			// +page.server.ts
 			session: Session | null
 		}
 		// interface Platform {}

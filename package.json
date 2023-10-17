@@ -38,6 +38,8 @@
 	"dependencies": {
 		"@lottiefiles/svelte-lottie-player": "^0.3.0",
 		"@supabase/auth-helpers-sveltekit": "^0.10.3",
+		"@supabase/auth-ui-shared": "^0.1.8",
+		"@supabase/auth-ui-svelte": "^0.2.7",
 		"@supabase/supabase-js": "^2.33.2",
 		"node-routeros": "^1.6.9"
 	}
