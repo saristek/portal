@@ -1,17 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 
-	let darkMode = true;
-
-	function handleSwitchDarkMode() {
-		darkMode = !darkMode;
-
-		localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-
-		darkMode
-			? document.documentElement.classList.add('dark')
-			: document.documentElement.classList.remove('dark');
-	}
+	export let darkMode: boolean | undefined;
 
 	if (browser) {
 		if (
@@ -24,6 +15,16 @@
 			document.documentElement.classList.remove('dark');
 			darkMode = false;
 		}
+	}
+
+	function handleSwitchDarkMode() {
+		darkMode = !darkMode;
+
+		localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+
+		darkMode
+			? document.documentElement.classList.add('dark')
+			: document.documentElement.classList.remove('dark');
 	}
 </script>
 

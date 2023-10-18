@@ -4,7 +4,15 @@ import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
+    let theme: string | null = null
+    const newTheme = event.url.searchParams.get('theme');
+    const cookieTheme = event.cookies.get("theme");
 
+    if (newTheme) {
+        theme = newTheme
+    } else if (cookieTheme) {
+        theme = cookieTheme
+    }
     // if (event.url.pathname.startsWith('/banana')) {
     //     return new Response('🍌')
     // }
@@ -12,6 +20,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     // otherwise use the default behavior
     // return resolve(event)
 
+    event.locals.theme = cookieTheme
     event.locals.supabase = createSupabaseServerClient({
         supabaseUrl: PUBLIC_SUPABASE_URL,
         supabaseKey: PUBLIC_SUPABASE_ANON_KEY,

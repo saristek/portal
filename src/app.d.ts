@@ -8,6 +8,7 @@ declare global {
 		interface Locals {
 			// resolve ssr middleware
 			// hooks.server.ts
+			theme: string | undefined
 			supabase: SupabaseClient
 			getSession(): Promise<Session | null>
 		}
