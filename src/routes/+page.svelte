@@ -11,7 +11,7 @@
 		{#if data.session?.user}
 			<Hotspot />
 		{:else}
-			<h1>maaf anda belum login</h1>
+			<h1 class="dark:bg-red-400 bg-white">maaf anda belum login</h1>
 			<button class="bg-gray-800 text-white rounded p-4" on:click={() => goto('/login')}>Login</button>
 		{/if}
 	</div>

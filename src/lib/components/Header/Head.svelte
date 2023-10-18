@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Switch from '../ThemeSwitch/Switch.svelte';
 	import { HeadMenu, Social } from '../menu';
 </script>
 
@@ -18,6 +19,7 @@
 		</div>
 		<div class="hidden sm:flex">
 			<a href="/login" class="p-2 text-white hover:text-black hover:bg-red-200">"login"</a>
+			<Switch/>
 			<!-- {#each HeadMenu as item}
 				<a href={base + item.to} class="p-2 text-white hover:text-black hover:bg-red-200"
 					>{item.title}</a
