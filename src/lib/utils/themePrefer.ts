@@ -3,4 +3,5 @@ function loadPreferredTheme() {
       , t = document.body.classList.contains("dark");
     e === "light" && t ? document.body.classList.remove("dark") : e === "dark" && !t && document.body.classList.add("dark")
 }
+
 loadPreferredTheme()

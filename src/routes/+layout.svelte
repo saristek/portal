@@ -8,11 +8,12 @@
 
 	export let data;
 
-	$: ({ supabase, session } = data);
+
+	$: ({ supabaseClient, clientSession } = data);
 
 	onMount(() => {
-		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
-			if (_session?.expires_at !== session?.expires_at) {
+		const { data } = supabaseClient.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== clientSession?.expires_at) {
 				invalidate('supabase:auth');
 			}
 		});

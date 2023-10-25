@@ -8,7 +8,7 @@
 <!-- bg-red-200 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 mx-2 rounded-lg sm:rounded-xl sm:px-10 -->
 <PageCenter>
 	<div class="mx-auto max-w-md">
-		{#if data.session?.user}
+		{#if data.clientSession?.user}
 			<Hotspot />
 		{:else}
 			<h1 class="dark:bg-red-400 bg-white">maaf anda belum login</h1>

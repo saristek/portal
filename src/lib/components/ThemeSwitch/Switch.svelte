@@ -1,42 +1,41 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
 
-	export let darkMode: boolean | undefined;
+	$: darkMode = $page.data.modeThemes == 'dark' ? true : false;
+	// import { browser } from '$app/environment';
 
-	if (browser) {
-		if (
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-		) {
-			document.documentElement.classList.add('dark');
-			darkMode = true;
-		} else {
-			document.documentElement.classList.remove('dark');
-			darkMode = false;
-		}
-	}
+	// let darkMode: boolean | null;
 
-	function handleSwitchDarkMode() {
-		darkMode = !darkMode;
+	// if (browser) {
+	// 	if (
+	// 		localStorage.theme === 'dark' ||
+	// 		(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+	// 	) {
+	// 		document.documentElement.classList.add('dark');
+	// 		darkMode = true;
+	// 	} else {
+	// 		document.documentElement.classList.remove('dark');
+	// 		darkMode = false;
+	// 	}
+	// }
 
-		localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+	// function handleSwitchDarkMode() {
+	// 	darkMode = !darkMode;
 
-		darkMode
-			? document.documentElement.classList.add('dark')
-			: document.documentElement.classList.remove('dark');
-	}
+	// 	localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+
+	// 	darkMode
+	// 		? document.documentElement.classList.add('dark')
+	// 		: document.documentElement.classList.remove('dark');
+	// }
 </script>
 
 <div class="my-auto mx-2">
-	<input
-		checked={darkMode}
-		on:click={handleSwitchDarkMode}
-		type="checkbox"
-		id="theme-toggle"
-		class="hidden"
-	/>
-	<label for="theme-toggle" />
+	<form class="logout" action={`?/setTheme=${darkMode}`} method="POST" use:enhance>
+		<input checked={darkMode} type="checkbox" id="theme-toggle" class="hidden" />
+		<label for="theme-toggle" />
+	</form>
 </div>
 
 <style lang="postcss">

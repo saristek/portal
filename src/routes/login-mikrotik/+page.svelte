@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import { base } from '$app/paths';
 	import { invalidateAll } from '$app/navigation';
 	import logo from '$lib/assets/logo.png';
 	import Counter from '$lib/components/Counter.svelte';
 	import PageCenter from '$lib/components/Layout/PageCenter.svelte';
 
-	export let data../login/$types.js;
+	export let data: PageData;
 
 	console.log(data.link.login);
 

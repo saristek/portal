@@ -1,9 +1,12 @@
 // server-only
 // src/routes/+layout.server.ts
+import type { LayoutServerLoad } from './$types'
+
 // handle the session on the server-side
-export const load = async ({ locals: { getSession, theme } }) => {
+export const load: LayoutServerLoad = async ({ locals: { theme, getSession } }) => {
+
     return {
-        darkMode: theme,
+        theme,
         session: await getSession(),
     }
 }
