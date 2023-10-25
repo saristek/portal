@@ -10,7 +10,7 @@
 <PageCenter>
 	<div class="text-left">
 		<Auth
-			view="sign_in"
+			view="sign_up"
 			supabaseClient={data.supabaseClient}
 			redirectTo={`${data.url}/auth/callback`}
 			showLinks={false}
@@ -18,23 +18,17 @@
 			theme={$page.data.modeThemes}
 			localization={{
 				variables: {
-					sign_in: {
+					sign_up: {
 						email_label: 'Email Belajar.ID',
 						password_label: 'Password Belajar.ID',
 						email_input_placeholder: 'tulis email anda disini',
 						password_input_placeholder: 'tulis password anda disini',
-						loading_button_label: 'mencoba masuk sistem...',
-						button_label: 'Masuk'
+						loading_button_label: 'Singkronasi Sistem...',
+						confirmation_text: 'untuk konfirmasi, silahkan check email belajar.id anda ',
+						button_label: 'Daftar'
 					}
 				}
 			}}
 		/>
-		<div class="py-2">
-			<p class="text-gray-500 text-sm">belum punya akun ?</p>
-			<button
-				class="hover:bg-emerald-500 bg-emerald-400 border-emerald-500 border-1 text-white w-full h-10 rounded"
-				on:click={() => goto('/register')}>Daftar</button
-			>
-		</div>
 	</div>
 </PageCenter>

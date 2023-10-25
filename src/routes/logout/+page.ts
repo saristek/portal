@@ -1,5 +1,5 @@
 export async function load() {
-    return {
-        title: "Logout"
-    }
+	return {
+		title: 'Logout'
+	};
 }

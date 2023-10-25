@@ -1,5 +1,5 @@
 export async function load() {
-    return {
-        title: "Pengguna"
-    }
+	return {
+		title: 'Pengguna'
+	};
 }

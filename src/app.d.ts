@@ -1,5 +1,5 @@
-import { SupabaseClient, Session } from '@supabase/supabase-js'
-import type { Themes } from './hooks.server'
+import { SupabaseClient, Session } from '@supabase/supabase-js';
+import type { Themes } from './hooks.server';
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
@@ -9,16 +9,21 @@ declare global {
 		interface Locals {
 			// resolve ssr middleware
 			// hooks.server.ts
-			theme: string | null
-			supabase: SupabaseClient
-			getSession(): Promise<Session | null>
+			theme: string | null;
+			supabase: SupabaseClient;
+			getSession(): Promise<Session | null>;
 		}
 		interface PageData {
-			// +page.server.ts
-			session: Session | null
+			// +routes.server.ts.data
+			serverSession: Session | null;
+			modeThemes: string;
 		}
 		// interface Platform {}
 	}
 }
 
-export { };
+declare module '@fortawesome/pro-solid-svg-icons/index.es' {
+	export * from '@fortawesome/pro-solid-svg-icons';
+}
+
+export {};

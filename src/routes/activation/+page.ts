@@ -1,5 +1,5 @@
 export async function load() {
-    return {
-        title: "Portal | Registrasi"
-    }
+	return {
+		title: 'Portal | Registrasi'
+	};
 }

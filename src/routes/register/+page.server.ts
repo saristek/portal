@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 	const base = {
-		title: 'Login LPD'
+		title: 'Registrasi Akun Portal'
 	};
 
 	const session = await getSession();

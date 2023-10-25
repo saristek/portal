@@ -6,7 +6,7 @@
 	type IconProps = IconHome | IconPencarian | IconPengaturan | IconTambah | IconBookmark;
 	let icon: ComponentType<IconProps>;
 	let to: string;
-	
+
 	export { icon, to };
 </script>
 

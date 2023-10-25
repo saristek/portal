@@ -15,15 +15,13 @@
 			>
 		</Card>
 		<Card title="Portal Pustaka">
-			<a
-				href="https://lib.smpsransa.sch.id/"
-				class="p-4 bg-blue-200 rounded-md hover:bg-blue-300">Kunjungi</a
+			<a href="https://lib.smpsransa.sch.id/" class="p-4 bg-blue-200 rounded-md hover:bg-blue-300"
+				>Kunjungi</a
 			>
 		</Card>
 		<Card title="Drive Sransa">
-			<a
-				href="https://drive.smpsransa.sch.id/"
-				class="p-4 bg-blue-200 rounded-md hover:bg-blue-300">Kunjungi</a
+			<a href="https://drive.smpsransa.sch.id/" class="p-4 bg-blue-200 rounded-md hover:bg-blue-300"
+				>Kunjungi</a
 			>
 		</Card>
 	</div>

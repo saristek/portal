@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Switch from '../ThemeSwitch/Switch.svelte';
 	import { HeadMenu, Social } from '../menu';
+	import Fa from 'svelte-fa';
+	import { faUser } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <!-- hidden md:block -->
@@ -17,9 +19,11 @@
 				</a>
 			{/each}
 		</div>
-		<div class="hidden sm:flex">
-			<a href="/login" class="p-2 text-white hover:text-black hover:bg-red-200">"login"</a>
-			<Switch/>
+		<div class="hidden sm:flex items-center justify-center">
+			<Switch />
+			<a href="/login" class="p-2 text-white hover:text-black hover:bg-red-200 rounded-lg"
+				><Fa icon={faUser} /></a
+			>
 			<!-- {#each HeadMenu as item}
 				<a href={base + item.to} class="p-2 text-white hover:text-black hover:bg-red-200"
 					>{item.title}</a

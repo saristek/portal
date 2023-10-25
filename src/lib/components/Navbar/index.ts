@@ -1,4 +1,4 @@
-import Navbar from './Nav.svelte'
+import Navbar from './Nav.svelte';
 // export { default as Button } from './Button.svelte'
 
-export default Navbar
+export default Navbar;

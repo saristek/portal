@@ -4,7 +4,7 @@ import { vitePreprocess } from '@sveltejs/kit/vite';
 // import { importAssets } from 'svelte-preprocess-import-assets';
 
 const dev = process.argv.includes('dev');
-const hotspot = process.env.BUILD_ENV == 'HOTSPOT'
+const hotspot = process.env.BUILD_ENV == 'HOTSPOT';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -28,8 +28,8 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: hotspot
 			? adapterStatic({
-				fallback: 'index.html'
-			})
+					fallback: 'index.html'
+			  })
 			: adapterAuto(),
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH

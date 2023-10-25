@@ -17,7 +17,10 @@ $(endif)
 		</div>
 		<div id="content" class="flex flex-col px-2">
 			<p class="info">Login hotspot untuk lanjut berjelajah:</p>
-			<a class="p-2 rounded-md bg-blue-300 hover:bg-blue-400 text-white text-center m-2" href="/login">
+			<a
+				class="p-2 rounded-md bg-blue-300 hover:bg-blue-400 text-white text-center m-2"
+				href="/login"
+			>
 				{data.link.login}
 			</a>
 		</div>
