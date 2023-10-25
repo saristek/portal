@@ -10,9 +10,10 @@ export enum Themes {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
+
     // theme block
-    let theme: string | null = null
-    const newTheme = event.url.searchParams.get('theme');
+    let theme: string | null
+    const newTheme = event.url.searchParams.get("theme");
     const cookieTheme = event.cookies.get("theme");
     if (newTheme) {
         theme = newTheme
@@ -22,7 +23,6 @@ export const handle: Handle = async ({ event, resolve }) => {
         event.cookies.set("theme", Themes.LIGHT)
         theme = Themes.LIGHT
     }
-
     event.locals.theme = theme
 
     // supabase block
@@ -43,6 +43,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     return resolve(event, {
+        transformPageChunk: ({ html }) => html.replace('class=""', `class="${event.locals.theme}"`),
         filterSerializedResponseHeaders(name) {
             return name === 'content-range'
         },

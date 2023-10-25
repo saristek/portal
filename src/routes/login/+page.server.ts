@@ -3,7 +3,7 @@ import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
     const base = {
-        title: "LPD | Layanan Portal Digital"
+        title: "Layanan Portal Digital"
     }
 
     const session = await getSession()

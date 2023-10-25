@@ -1,4 +1,5 @@
 import { SupabaseClient, Session } from '@supabase/supabase-js'
+import type { Themes } from './hooks.server'
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces

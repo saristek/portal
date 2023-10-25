@@ -2,39 +2,35 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 
-	$: darkMode = $page.data.modeThemes == 'dark' ? true : false;
-	// import { browser } from '$app/environment';
+	$: darkMode = ($page.data.modeThemes == 'dark' ? true : false);
 
-	// let darkMode: boolean | null;
+	function handleSwitchDarkMode() {
+		const toTheme = $page.data.modeThemes =='dark'? false : true
+		localStorage.setItem('theme', toTheme ? 'dark' : 'light');
 
-	// if (browser) {
-	// 	if (
-	// 		localStorage.theme === 'dark' ||
-	// 		(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-	// 	) {
-	// 		document.documentElement.classList.add('dark');
-	// 		darkMode = true;
-	// 	} else {
-	// 		document.documentElement.classList.remove('dark');
-	// 		darkMode = false;
-	// 	}
-	// }
-
-	// function handleSwitchDarkMode() {
-	// 	darkMode = !darkMode;
-
-	// 	localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-
-	// 	darkMode
-	// 		? document.documentElement.classList.add('dark')
-	// 		: document.documentElement.classList.remove('dark');
-	// }
+		// auto assign modeThemes on client
+		toTheme
+			? document.documentElement.classList.add('dark')
+			: document.documentElement.classList.remove('dark');
+	}
 </script>
 
 <div class="my-auto mx-2">
-	<form class="logout" action={`?/setTheme=${darkMode}`} method="POST" use:enhance>
-		<input checked={darkMode} type="checkbox" id="theme-toggle" class="hidden" />
-		<label for="theme-toggle" />
+	<form method="post" use:enhance>
+		<button
+			data-sveltekit-preload-code
+			on:click={handleSwitchDarkMode}
+			formaction={`/?/setTheme&theme=${$page.data.modeThemes}&redirectTo=${$page.url.pathname}`}
+		>
+			<input
+				checked={darkMode}
+				type="checkbox"
+				id="theme-toggle"
+				class="hidden"
+				formaction={`/?/setTheme`}
+			/>
+			<label for="theme-toggle" />
+		</button>
 	</form>
 </div>
 
@@ -44,7 +40,7 @@
 	}
 
 	#theme-toggle + label {
-		@apply inline-block cursor-pointer h-6 w-6 rounded-full duration-300 content-[''];
+		@apply inline-block cursor-pointer h-6 w-6 rounded-full duration-300 content-[''] caret-transparent;
 	}
 
 	#theme-toggle:not(:checked) + label {

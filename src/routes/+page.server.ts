@@ -1,9 +1,9 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
     const base = {
-        title: "LPD | Layanan Portal Digital"
+        title: "Layanan Portal Digital"
     }
 
     const session = await getSession()
@@ -17,3 +17,19 @@ export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
         url: url.origin
     }
 }
+
+export const actions: Actions = {
+    setTheme: async ({ cookies, locals, url }) => {
+        const theme = locals.theme == 'light' ? 'dark' : 'light'
+
+        if (theme) {
+            cookies.set("theme", theme, {
+                path: '/',
+                maxAge: 60 * 60 * 24 * 365
+            })
+        }
+
+        // work's every layout routes
+        throw redirect(303, url.searchParams.get("redirectTo") ?? '/')
+    }
+};
