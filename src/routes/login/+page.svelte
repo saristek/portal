@@ -14,7 +14,12 @@
 			supabaseClient={data.supabaseClient}
 			redirectTo={`${data.url}/auth/callback`}
 			showLinks={false}
-			appearance={{ theme: ThemeSupa }}
+			appearance={{
+				theme: ThemeSupa,
+				className: {
+					label: 'text-gray-500 dark:text-gray-300 text-xs'
+				}
+			}}
 			theme={$page.data.modeThemes}
 			localization={{
 				variables: {
@@ -30,7 +35,7 @@
 			}}
 		/>
 		<div class="py-2">
-			<p class="text-gray-500 text-sm">belum punya akun ?</p>
+			<p class="text-gray-500 dark:text-gray-300 text-xs">belum punya akun ?</p>
 			<button
 				class="hover:bg-emerald-500 bg-emerald-400 border-emerald-500 border-1 text-white w-full h-10 rounded"
 				on:click={() => goto('/register')}>Daftar</button

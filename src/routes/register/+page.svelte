@@ -14,7 +14,12 @@
 			supabaseClient={data.supabaseClient}
 			redirectTo={`${data.url}/auth/callback`}
 			showLinks={false}
-			appearance={{ theme: ThemeSupa }}
+			appearance={{
+				theme: ThemeSupa,
+				className: {
+					label: 'text-gray-500 dark:text-gray-300 text-xs'
+				}
+			}}
 			theme={$page.data.modeThemes}
 			localization={{
 				variables: {
