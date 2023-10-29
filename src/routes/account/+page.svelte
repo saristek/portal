@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import Avatar from './Avatar.svelte';
 
 	export let data;
 	export let form;
 
-	$: ({ session, supabase, profile } = data);
+	$: ({ session, supabaseClient, profile } = data);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -46,6 +47,14 @@
 		use:enhance={handleSubmit}
 		bind:this={profileForm}
 	>
+		<Avatar
+			supabase={supabaseClient}
+			bind:url={avatarUrl}
+			size={10}
+			on:upload={() => {
+				profileForm.requestSubmit();
+			}}
+		/>
 		<div>
 			<label for="email">Email</label>
 			<input id="email" type="text" value={session?.user.email} disabled />
