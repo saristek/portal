@@ -2,7 +2,8 @@
 	import '../app.postcss';
 	import { fly } from 'svelte/transition';
 	import { page } from '$app/stores';
-	import Layout from '$lib/components/Layout.svelte';
+	import Common from '$lib/components/Layout/Common.svelte';
+	import Dashboard from '$lib/components/Layout/Dashboard.svelte';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
 	import Switch from '$lib/components/ThemeSwitch/Switch.svelte';
@@ -43,14 +44,20 @@
 	<title>{$page.data.title ?? 'Portal Sransa | by Saristek'}</title>
 </svelte:head>
 
-<Layout>
-	{#key data.currentPath}
-		<main
-			class="flex-1 grid w-auto bg-gray-100 dark:bg-gray-800 overflow-y-scroll"
-			in:fly={{ x: -30, duration: 200, delay: 150 }}
-			out:fly={{ x: -30, duration: 150 }}
-		>
-			<slot />
-		</main>
-	{/key}
-</Layout>
+{#if data.currentPath.split('/')[1] == 'dashboard'}
+	<Dashboard>
+		<slot />
+	</Dashboard>
+{:else}
+	<Common>
+		{#key data.currentPath}
+			<main
+				class="flex-1 grid w-auto bg-gray-100 dark:bg-gray-800 overflow-y-scroll"
+				in:fly={{ x: -30, duration: 200, delay: 150 }}
+				out:fly={{ x: -30, duration: 150 }}
+			>
+				<slot />
+			</main>
+		{/key}
+	</Common>
+{/if}

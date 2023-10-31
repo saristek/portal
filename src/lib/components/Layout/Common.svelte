@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Header from './Header';
-	import Navbar from './Navbar';
+	import Header from '../Header';
+	import Navbar from '../Navbar';
 
 	// import Background from './Background.svelte';
 </script>
