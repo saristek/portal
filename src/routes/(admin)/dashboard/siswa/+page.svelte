@@ -6,8 +6,8 @@
 	type ISelected = {
 		kelas: number;
 		rombel: string;
-	} | null;
-	let selectedKelas: ISelected = null;
+	};
+	let selectedKelas: ISelected;
 
 	$: kelas = dataSiswa.filter((cek) => cek.kelas == selectedKelas?.kelas)[0]['rombel'];
 	$: rombel = kelas.filter((cek) => cek.nama == selectedKelas?.rombel)[0];
@@ -15,7 +15,7 @@
 		.filter((cek) => cek.kelas == selectedKelas?.kelas)[0]
 		['rombel'].filter((cek) => cek.nama == selectedKelas?.rombel)[0];
 
-	const loadRombel: MouseEventHandler<HTMLLIElement> = (ev) => {
+	const loadRombel: MouseEventHandler<HTMLButtonElement> = (ev) => {
 		const data = JSON.parse(ev.currentTarget.id);
 		selectedKelas.rombel = data['rombel'];
 		selectedKelas.kelas = data['kelas'];
@@ -136,13 +136,14 @@
 					</summary>
 					<ul class="pl-6">
 						{#each tingkat.rombel as rombel, idRombel}
-							<li
-								class="hover:bg-red-300 p-1 flex justify-between items-end"
-								id={`{"rombel": "${rombel.nama}", "kelas": ${tingkat.kelas}}`}
-								on:click={loadRombel}
-							>
-								<span>Rombel: {rombel.nama.toUpperCase()}</span>
-								<span class="text-xs">{rombel.wali}</span>
+							<li id={`{"rombel": "${rombel.nama}", "kelas": ${tingkat.kelas}}`}>
+								<button
+									class="hover:bg-red-300 p-1 flex justify-between items-end"
+									on:click={loadRombel}
+								>
+									<span>Rombel: {rombel.nama.toUpperCase()}</span>
+									<span class="text-xs">{rombel.wali}</span>
+								</button>
 							</li>
 						{/each}
 					</ul>
