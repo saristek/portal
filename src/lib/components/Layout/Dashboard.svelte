@@ -19,6 +19,10 @@
 					class="bg-red-500 hover:bg-red-600 p-2 rounded-md"
 					href="/dashboard/tu">TU</a
 				>
+				<a
+					class="bg-red-500 hover:bg-red-600 p-2 rounded-md"
+					href="/dashboard/stock">Stock</a
+				>
 			</ul>
 			<div class="p-2 flex">
 				<a class="w-full bg-red-500 hover:bg-red-600 p-2 rounded-md" href="/?logout">Logout</a>
