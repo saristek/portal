@@ -11,6 +11,19 @@
 	export let form: ActionData;
 
 	let isActive = 'item';
+
+	const whatTarget = (active: string) => {
+		switch (active) {
+			case 'brand':
+				return 'items_brand';
+			case 'item':
+				return 'items_electronics';
+			default:
+				return 'items_type';
+		}
+	};
+
+	$: target = whatTarget(isActive);
 </script>
 
 <div class="flex justify-stretch p-2">
@@ -42,6 +55,12 @@
 <div class="flex justify-stretch p-2">
 	<fieldset class="border border-solid border-gray-600 flex flex-col w-full p-2 bg-red-300">
 		<legend class="font-bold bg-red-300 px-2 text-left">daftar {isActive}</legend>
-		<ListBrand />
+		{#if isActive == 'tipe'}
+			<ListBrand target="items_type" />
+		{:else if isActive == 'brand'}
+			<ListBrand target="items_brand" />
+		{:else if isActive == 'item'}
+			<ListBrand target="items_electronics" />
+		{/if}
 	</fieldset>
 </div>
