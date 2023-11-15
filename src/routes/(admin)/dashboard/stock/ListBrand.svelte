@@ -35,20 +35,22 @@
 	<p>loading...</p>
 {:then items}
 	{#if target == 'items_electronics'}
-		<div class="overflow-x">
-			<table class="table-auto overflow-scroll w-full">
-				<thead>
-					<tr class="bg-gray-100 font-semibold">
-						<th class="p-2">No.</th>
-						<th class="p-2">Jenis Barang</th>
-						<th class="p-2">Nama Merek</th>
-						<th class="p-2">Codename</th>
-						<th class="p-2">Family</th>
-						<th class="p-2">Detail Model</th>
-						<th class="p-2">Detail Seri</th>
-						<th class="p-2">Detail Lainnya</th>
-					</tr>
-				</thead>
+		<table class="table-auto overflow-y-scroll w-full">
+			<thead>
+				<tr class="bg-gray-100 font-semibold">
+					<th class="p-2">No.</th>
+					<th class="p-2">Jenis Barang</th>
+					<th class="p-2">Nama Merek</th>
+					<th class="p-2">Codename</th>
+					<th class="p-2">Family</th>
+					<th class="p-2">Detail Model</th>
+					<th class="p-2">Detail Seri</th>
+					<th class="p-2">Detail Lainnya</th>
+				</tr>
+			</thead>
+		</table>
+		<div class="overflow-x-scroll max-h-52">
+			<table class="table-auto overflow-y-scroll w-full">
 				<tbody>
 					{#each items as item}
 						<tr class="mb-2 bg-red-400/20 hover:bg-red-400/50">
