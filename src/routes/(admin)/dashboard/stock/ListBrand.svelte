@@ -1,6 +1,17 @@
+<script context="module" lang="ts">
+	export type Params = {
+		selectedID: number;
+	};
+	export interface DispatchProps {
+		actionSelect: Params;
+	}
+</script>
+
 <script lang="ts">
 	import { client } from '$lib/hook/supabase';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher<DispatchProps>();
 
 	export let target: string;
 	const getDataCommon = async () => {
@@ -38,22 +49,29 @@
 		<table class="table-auto overflow-y-scroll w-full">
 			<thead>
 				<tr class="bg-gray-100 font-semibold">
-					<th class="p-2">No.</th>
-					<th class="p-2">Jenis Barang</th>
-					<th class="p-2">Nama Merek</th>
-					<th class="p-2">Codename</th>
-					<th class="p-2">Family</th>
-					<th class="p-2">Detail Model</th>
-					<th class="p-2">Detail Seri</th>
-					<th class="p-2">Detail Lainnya</th>
+					<th class="p-1">No.</th>
+					<th class="p-1">Jenis Barang</th>
+					<th class="p-1">Nama Merek</th>
+					<th class="p-1">Codename</th>
+					<th class="p-1">Family</th>
+					<th class="p-1">Detail Model</th>
+					<th class="p-1">Detail Seri</th>
+					<th class="p-1">Detail Lainnya</th>
 				</tr>
 			</thead>
 		</table>
-		<div class="overflow-x-scroll max-h-52">
+		<div class="overflow-x-scroll">
 			<table class="table-auto overflow-y-scroll w-full">
 				<tbody>
 					{#each items as item}
-						<tr class="mb-2 bg-red-400/20 hover:bg-red-400/50">
+						<tr
+							class="mb-2 bg-red-400/20 hover:bg-red-400/50"
+							on:click={() => {
+								dispatch('actionSelect', {
+									selectedID: item.id
+								});
+							}}
+						>
 							<td class="text-left pl-2">{item.id}.</td>
 							<td>{item.items_type.name}</td>
 							<td>{item.items_brand.name}</td>

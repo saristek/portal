@@ -1,8 +1,24 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { createEventDispatcher } from 'svelte';
+
+	let from:HTMLFormElement;
+	const dispatch = createEventDispatcher<{ edit: { id: string } }>();
+
+	export let clearItem: () => void;
+	export let isEdit: boolean;
+
+
+
 </script>
 
-<form class="flex flex-col w-full" action="/dashboard/stock/?/getBrand" method="POST" use:enhance>
+<form
+	bind:this={from}
+	class="flex flex-col w-full"
+	action="/dashboard/stock/?/getBrand"
+	method="POST"
+	use:enhance
+>
 	<div class="flex text-left justify-between">
 		<div class="flex flex-col">
 			<label for="item_type" class="text-sm pr-2">jenis barang</label>
@@ -26,5 +42,19 @@
 			</div>
 		</fieldset>
 	</div>
-	<button type="submit" class="p-2 bg-red-400 mt-2 hover:bg-red-500/80">Tambah Barang</button>
+	<div class="flex space-x-2">
+		<button
+		on:click|preventDefault={()=>console.log(from.nodeValue)}
+			type="submit"
+			class="{isEdit ? 'w-[80%]' : 'w-full'} p-2 bg-red-400 mt-2 hover:bg-red-500/80"
+			>{isEdit ? 'Perbarui' : 'Tambah'} Barang</button
+		>
+		{#if isEdit}
+			<button
+				type="submit"
+				class="w-[20%] p-2 bg-gray-400 mt-2 text-gray-200 hover:bg-gray-500/80"
+				on:click|preventDefault={() => clearItem()}>Bersihkan</button
+			>
+		{/if}
+	</div>
 </form>
