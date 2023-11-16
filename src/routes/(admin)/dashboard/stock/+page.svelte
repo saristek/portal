@@ -61,7 +61,7 @@
 			{:else if isActive == 'item'}
 				<FormItem
 					{isEdit}
-					clearItem={() => {
+					clearSelect={() => {
 						isEdit = false;
 					}}
 				/>
