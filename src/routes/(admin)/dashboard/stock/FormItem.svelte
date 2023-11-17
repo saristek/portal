@@ -1,47 +1,59 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { createEventDispatcher } from 'svelte';
+	import type { MouseEventHandler } from 'svelte/elements';
 
-	let item_type,
-		item_brand: HTMLInputElement,
-		codename: HTMLInputElement,
-		family: HTMLInputElement,
-		detail_model: HTMLInputElement,
-		detail_series: HTMLInputElement,
-		detail_more: HTMLInputElement;
+	let item_type: string,
+		item_brand: string,
+		codename: string,
+		family: string,
+		detail_model: string,
+		detail_series: string,
+		detail_more: string;
 
 	const dispatch = createEventDispatcher<{ edit: { id: string } }>();
 
 	export let clearSelect: () => void;
 	export let isEdit: boolean;
 
-	const clearForm = () => {
+	const clearForm: MouseEventHandler<HTMLButtonElement> = () => {
 		clearSelect();
 		item_type = '';
+		item_brand = '';
+		codename = '';
+		family = '';
+		detail_model = '';
+		detail_series = '';
+		detail_more = '';
 	};
+
+	$: startCreate =
+		item_type || item_brand || codename || family || detail_model || detail_series || detail_more
+			? true
+			: false;
 </script>
 
 <form class="flex flex-col w-full" action="/dashboard/stock/?/getBrand" method="POST" use:enhance>
 	<div class="flex text-left justify-between">
 		<div class="flex flex-col">
 			<label for="item_type" class="text-sm pr-2">jenis barang</label>
-			<input name="item_type" bind:value={item_type} />
+			<input class="p-1" name="item_type" bind:value={item_type} />
 			<label for="item_brand" class="text-sm pr-2">nama brand</label>
-			<input name="item_brand" bind:value={item_brand} />
+			<input class="p-1" name="item_brand" bind:value={item_brand} />
 			<label for="codename" class="text-sm pr-2">codename</label>
-			<input name="codename" bind:value={codename} />
+			<input class="p-1" name="codename" bind:value={codename} />
 			<label for="family" class="text-sm pr-2">family</label>
-			<input name="family" bind:value={family} />
+			<input class="p-1" name="family" bind:value={family} />
 		</div>
 		<fieldset class="ml-2 flex-1 border border-solid border-gray-600 p-3">
 			<legend class="text-sm pr-2"> details </legend>
 			<div class="flex flex-col pl-2">
 				<label for="detail_model" class="text-sm pr-2">model</label>
-				<input name="detail_model" bind:value={detail_model} />
+				<input class="p-1" name="detail_model" bind:value={detail_model} />
 				<label for="detail_series" class="text-sm pr-2">series</label>
-				<input name="detail_series" bind:value={detail_series} />
+				<input class="p-1" name="detail_series" bind:value={detail_series} />
 				<label for="detail_more" class="text-sm pr-2">more</label>
-				<input name="detail_more" bind:value={detail_more} />
+				<input class="p-1" name="detail_more" bind:value={detail_more} />
 			</div>
 		</fieldset>
 	</div>
@@ -52,7 +64,7 @@
 			class="{isEdit ? 'w-[80%]' : 'w-full'} p-2 bg-red-400 mt-2 hover:bg-red-500/80"
 			>{isEdit ? 'Perbarui' : 'Tambah'} Barang</button
 		>
-		{#if isEdit}
+		{#if isEdit || startCreate}
 			<button
 				type="submit"
 				class="w-[20%] p-2 bg-gray-400 mt-2 text-gray-200 hover:bg-gray-500/80"

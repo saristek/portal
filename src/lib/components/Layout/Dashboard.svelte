@@ -2,10 +2,10 @@
 	import { page } from '$app/stores';
 </script>
 
-<div class="flex h-screen">
-	<aside class="bg-red-400 w-36 flex flex-col">
+<div class="overflow-hidden flex h-screen">
+	<aside class="w-[30%] overflow-x-scroll bg-red-400 sm:w-36 flex flex-col">
 		<div class="mt-2 p-2">Saristek</div>
-		<div class="flex-1 flex flex-col justify-between">
+		<div class="flex-wrap flex-1 flex flex-col items-stretch justify-between">
 			<ul class="flex flex-col p-2 text-left space-y-1">
 				<a class="bg-red-500 hover:bg-red-600 p-2 rounded-md" href="/dashboard/siswa">Siswa</a>
 				<a class="bg-red-500 hover:bg-red-600 p-2 rounded-md" href="/dashboard/tendik">Tendik</a>
@@ -17,7 +17,7 @@
 			</div>
 		</div>
 	</aside>
-	<main class="flex-1 bg-gray-200">
+	<main class="w-[70%] sm:flex-1 bg-gray-200">
 		<slot />
 	</main>
 </div>

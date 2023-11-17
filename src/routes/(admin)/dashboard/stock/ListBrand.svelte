@@ -43,7 +43,10 @@
 </script>
 
 {#await promise}
+<div class="h-full flex justify-center items-center">
 	<p>loading...</p>
+
+</div>
 {:then items}
 	{#if target == 'items_electronics'}
 		<table class="table-auto overflow-y-scroll w-full">
@@ -89,7 +92,7 @@
 	{:else}
 		<ul class="flex flex-col w-full text-left px-2">
 			{#each items as item}
-				<li class="mb-2 pl-2 bg-red-400/20 hover:bg-red-400/50">{item.name}</li>
+				<li class="pl-2 bg-red-400/20 hover:bg-red-400/50">{item.name}</li>
 			{/each}
 		</ul>
 	{/if}
