@@ -3,18 +3,19 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 
-	let item_type: string,
-		item_brand: string,
-		codename: string,
-		family: string,
-		detail_model: string,
-		detail_series: string,
-		detail_more: string;
-
 	const dispatch = createEventDispatcher<{ edit: { id: string } }>();
 
+	export let detail: any;
 	export let clearSelect: () => void;
 	export let isEdit: boolean;
+
+	let item_type: string,
+		item_brand: string,
+		codename: string = detail.codename ?? '',
+		family: string = detail.family ?? '',
+		detail_model: string = detail.detail_model ?? '',
+		detail_series: string = detail.detail_series ?? '',
+		detail_more: string = detail.detail_more ?? '';
 
 	const clearForm: MouseEventHandler<HTMLButtonElement> = () => {
 		clearSelect();
@@ -27,17 +28,20 @@
 		detail_more = '';
 	};
 
+	// $: inputdata = detail
 	$: startCreate =
 		item_type || item_brand || codename || family || detail_model || detail_series || detail_more
 			? true
 			: false;
+
+	$: console.log(detail);
 </script>
 
 <form class="flex flex-col w-full" action="/dashboard/stock/?/getBrand" method="POST" use:enhance>
 	<div class="flex text-left justify-between">
 		<div class="flex flex-col">
 			<label for="item_type" class="text-sm pr-2">jenis barang</label>
-			<input class="p-1" name="item_type" bind:value={item_type} />
+			<input class="p-1" name="item_type" bind:value={item_type} type="text" />
 			<label for="item_brand" class="text-sm pr-2">nama brand</label>
 			<input class="p-1" name="item_brand" bind:value={item_brand} />
 			<label for="codename" class="text-sm pr-2">codename</label>
@@ -59,7 +63,7 @@
 	</div>
 	<div class="flex space-x-2">
 		<button
-			on:click|preventDefault={() => console.log(from.nodeValue)}
+			on:click|preventDefault={() => console.log('')}
 			type="submit"
 			class="{isEdit ? 'w-[80%]' : 'w-full'} p-2 bg-red-400 mt-2 hover:bg-red-500/80"
 			>{isEdit ? 'Perbarui' : 'Tambah'} Barang</button

@@ -3,17 +3,44 @@
 	import FormBrand from './FormBrand.svelte';
 	import FormItem from './FormItem.svelte';
 	import ListBrand, { type Params } from './ListBrand.svelte';
+	import type { PageData } from './$types';
 
-	// export let data: PageData;
+	export let data: PageData;
 	// export let form: ActionData;
 
 	let isActive = '';
 	let isEdit = false;
+	let LoadingEdit = false;
 	let formHide = false;
+	let detail: any;
+	let id;
 
-	const actionSelect = (e: CustomEvent<Params>) => {
+	const actionSelect = async (e: CustomEvent<Params>) => {
+		formHide = false;
 		isEdit = true;
-		alert(e.detail.selectedID);
+		id = e.detail.selectedID;
+		LoadingEdit = true;
+		const response = await data.supabaseClient
+			.from('items_electronics')
+			.select(
+				`
+			id,
+			items_type(id, name),
+			items_brand(id, name),
+			codename,
+			family,
+			details_model,
+			details_series,
+			details_more
+		`
+			)
+			.eq('id', e.detail.selectedID)
+			.single();
+
+		if (response.data) {
+			detail = response.data;
+			LoadingEdit = false;
+		}
 	};
 
 	const actionMenu = (target: string) => {
@@ -21,7 +48,7 @@
 		formHide = true;
 	};
 
-	$: console.log(isEdit);
+	// $: console.log(detail);
 </script>
 
 <div class="h-full flex flex-col">
@@ -40,17 +67,24 @@
 		</fieldset>
 	</div>
 	<div class="flex justify-stretch p-2">
-		<fieldset class="border border-solid border-gray-600 flex flex-col w-full p-2 bg-red-300">
+		<fieldset
+			class="border border-solid border-gray-600 flex flex-col w-full p-2 {isEdit
+				? 'bg-sky-300'
+				: 'bg-red-300'}"
+		>
 			<legend class="font-bold bg-red-300 px-2 text-left"
 				>form {isEdit ? 'atur' : 'tambah'} {isActive}</legend
 			>
-			{#if formHide}
-				{#if isActive == 'tipe'}
+			{#if !formHide}
+				{#if LoadingEdit}
+					load data...
+				{:else if isActive == 'tipe'}
 					<FormType />
 				{:else if isActive == 'brand'}
 					<FormBrand />
 				{:else if isActive == 'item'}
 					<FormItem
+						{detail}
 						{isEdit}
 						clearSelect={() => {
 							isEdit = false;
@@ -58,12 +92,12 @@
 					/>
 				{/if}
 			{/if}
-			{#if isActive}
+			{#if isActive && !LoadingEdit}
 				<button
 					class="mt-2 hover:bg-blue-400/80 bg-blue-300"
 					on:click={() => (formHide = !formHide)}
 				>
-					{#if formHide}
+					{#if !formHide}
 						sembunyikan form
 					{:else}
 						tampilkan form

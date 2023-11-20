@@ -36,7 +36,6 @@
 
 		if (error) throw new Error(error.message);
 
-		console.log(data);
 		return data;
 	};
 	let promise = target == 'items_electronics' ? getDataItem() : getDataCommon();
