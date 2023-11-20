@@ -15,42 +15,38 @@
 	export let data: PageData;
 </script>
 
-<div class="h-full flex overflow-hidden">
+<div class="h-full flex">
 	<div class="w-[70%] flex flex-col">
 		<div class="bg-gray-300 p-2">tenaga didik</div>
-		<div class="flex-1 flex flex-col text-left p-4">
+		<div class="h-full flex-1 flex flex-col text-left">
 			<h1 class="py-2 flex justify-between">
 				<span class="p-2 bg-red-200"
 					>Kelas: {selectedKelas.kelas}-{selectedKelas.rombel.toUpperCase()}</span
 				>
 				<span class="p-2 bg-green-200">wali: {wali.wali}</span>
 			</h1>
-			<div class="flex-1 flex flex-col overflow-hidden">
-				<table class="w-full">
-					<thead class="bg-gray-400 flex w-full">
-						<tr class="flex w-full text-center">
-							<td class="w-10 p-2">no</td>
-							<td class="w-36 p-2">nis</td>
-							<td class="grow p-2">nama</td>
-							<td class="w-56 p-2">telp</td>
-							<td class="w-24 p-2">kelamin</td>
+			<table class="flex-1 table-auto w-full">
+				<thead class="bg-gray-400">
+					<tr class="flex w-full text-center">
+						<td class="w-10 p-2">no</td>
+						<td class="w-36 p-2">nis</td>
+						<td class="grow p-2">nama</td>
+						<td class="w-56 p-2">telp</td>
+						<td class="w-24 p-2">kelamin</td>
+					</tr>
+				</thead>
+				<tbody class="flex flex-col overflow-y-scroll">
+					{#each rombel['member'] as member, id}
+						<tr class="flex w-full">
+							<td class="w-10 p-2">{id + 1}</td>
+							<td class="w-36 p-2">{member.nis}</td>
+							<td class="grow p-2">{member.nama}</td>
+							<td class="w-56 p-2">{member.telp}</td>
+							<td class="w-24 p-2">{member.jk == 'P' ? 'Perempuan' : 'Laki-laki'}</td>
 						</tr>
-					</thead>
-				</table>
-				<table class="w-full flex-1 flex flex-col overflow-hidden">
-					<tbody class="flex flex-col overflow-y-scroll">
-						{#each rombel['member'] as member, id}
-							<tr class="flex w-full">
-								<td class="w-10 p-2">{id + 1}</td>
-								<td class="w-36 p-2">{member.nis}</td>
-								<td class="grow p-2">{member.nama}</td>
-								<td class="w-56 p-2">{member.telp}</td>
-								<td class="w-24 p-2">{member.jk == 'P' ? 'Perempuan' : 'Laki-laki'}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
+					{/each}
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div class="w-[30%]">

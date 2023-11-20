@@ -48,7 +48,7 @@
 </div>
 {:then items}
 	{#if target == 'items_electronics'}
-		<table class="table-auto overflow-y-scroll w-full">
+		<table class="table-auto w-full">
 			<thead>
 				<tr class="bg-gray-100 font-semibold">
 					<th class="p-1">No.</th>
@@ -62,8 +62,8 @@
 				</tr>
 			</thead>
 		</table>
-		<div class="overflow-x-scroll">
-			<table class="table-auto overflow-y-scroll w-full">
+		<div class="overflow-y-scroll">
+			<table class="table-auto w-full">
 				<tbody>
 					{#each items as item}
 						<tr
