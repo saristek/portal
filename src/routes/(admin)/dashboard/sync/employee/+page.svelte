@@ -4,49 +4,81 @@
 
 	export let data: PageData;
 
+	let hideMenu = false;
+	let loading = false;
+
 	const { employee } = data;
 </script>
 
-<div class="h-full flex flex-col">
-	<div id="head_main" class="h-10 flex font-semibold justify-between items-stretch bg-gray-300">
-		<button class="bg-blue-300 px-2" on:click|preventDefault={() => goto('/dashboard/sync')}
-			>« kembali</button
-		>
-		<span class="p-2">Data Ke-Pegawaian</span>
-	</div>
-	<div class="flex-1 flex pt-2">
-		<div class="w-[75%]">
-			<table class="">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>TTL</th>
-						<th>Alamat</th>
-						<th>JK</th>
-						<th>Jabatan</th>
-						<th>Email</th>
-						<th>Password</th>
-						<th>Telepon</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each employee as item, id}
-						<tr>
-							<td>{id + 1}</td>
-							<td>{item.name}</td>
-							<td>{item.born}, {item.birth}</td>
-							<td>{item.domicile}</td>
-							<td>{item.gender}</td>
-							<td>{item.email}</td>
-							<td>{item.password}</td>
-							<td>{item.phone}</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
+<div class="flex-1 flex sm:flex-row flex-col p-2">
+	<div class="{hideMenu ? 'w-full' : 'w-[80%]'} flex flex-col">
+		<div class="mb-2 mr-2 flex justify-between">
+			<h2 class="p-2 text-center sm:text-left">daftar jenis pegawai</h2>
+			<button on:click|preventDefault={() => (hideMenu = !hideMenu)} class="p-2 bg-blue-300 rounded"
+				>tampilkan menu</button
+			>
 		</div>
-		<div class="w-[25%] flex flex-col p-2">
+		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
+			<div class="h-full overflow-y-auto">
+				<div id="data" class="min-h-fit max-h-32">
+					{#if loading}
+						<p class="text-blue-600">loading: coba mengunduh data</p>
+					{:else if employee.length == 0}
+						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
+						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
+					{:else}
+						<table
+							class="border-collapse border border-slate-400 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-gray-100"
+						>
+							<thead
+								class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+							>
+								<tr>
+									<th scope="col" class="w-10 px-2 py-3 text-center">aksi</th>
+									<th scope="col" class="px-2 py-3 text-center">Nama</th>
+									<th scope="col" class="px-2 py-3 text-center">TTL</th>
+									<th scope="col" class="px-2 py-3 text-center">Alamat</th>
+									<th scope="col" class="px-2 py-3 text-center">JK</th>
+									<th scope="col" class="px-2 py-3 text-center">Jabatan</th>
+									<th scope="col" class="px-2 py-3 text-center">Email</th>
+									<th scope="col" class="px-2 py-3 text-center">Password</th>
+									<th scope="col" class="px-2 py-3 text-center">Telepon</th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each employee as item}
+									<tr>
+										<td class="px-2 py-3 text-center font-light text-xs flex space-x-1">
+											<button
+												id={item.id}
+												on:click|preventDefault={() => {}}
+												class="bg-red-300 hover:bg-red-400 p-1 rounded text-white">hapus</button
+											>
+											<button
+												id={item.id}
+												on:click|preventDefault={() => {}}
+												class="bg-blue-300 hover:bg-blue-400 p-1 rounded text-white">edit</button
+											>
+										</td>
+										<td class="px-2 py-2">{item.name}</td>
+										<td class="px-2 py-2">{item.born}, {item.birth}</td>
+										<td class="px-2 py-2">{item.domicile}</td>
+										<td class="px-2 py-2 text-center">{item.gender}</td>
+										<td class="px-2 py-2 text-center">{item.status}</td>
+										<td class="px-2 py-2 text-end">{item.email}</td>
+										<td class="px-2 py-2 text-center">{item.password}</td>
+										<td class="px-2 py-2 text-center">{item.phone}</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+	{#if !hideMenu}
+		<div class="w-[20%] flex flex-col p-2">
 			<div class="flex-1 flex flex-col pl-1">
 				<div id="head_menu" class="mb-2 text-left">aksi</div>
 				<button
@@ -76,5 +108,5 @@
 				>
 			</div>
 		</div>
-	</div>
+	{/if}
 </div>

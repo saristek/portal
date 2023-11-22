@@ -16,12 +16,17 @@ type IData = {
 }
 
 export const load: PageLoad = async () => {
+    const base = {
+		title: 'Data Ke-Pegawaian'
+	};
+
     const loadEmployee = async () => {
         const { data } = await client.from('employee').select()
         return data as IData[]
     }
 
     return {
+        infoPage: base,
         employee: loadEmployee()
     }
 };

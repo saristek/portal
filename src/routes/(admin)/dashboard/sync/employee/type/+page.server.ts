@@ -1,4 +1,15 @@
 import type { Actions } from "@sveltejs/kit";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = async () => {
+    const base = {
+		title: 'Jenis Ke-Pegawaian'
+	};
+
+    return {
+        infoPage: base,
+    }
+};
 
 export const actions: Actions = {
     addNew: async ({ request , locals}) => {

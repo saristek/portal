@@ -3,7 +3,7 @@
 </script>
 
 <div class="overflow-hidden flex h-screen">
-	<aside class="w-[30%] overflow-y-scroll bg-red-400 sm:w-36 flex flex-col">
+	<aside class="w-[30%] overflow-y-auto bg-red-400 sm:w-36 flex flex-col">
 		<div class="mt-2 p-2">Saristek</div>
 		<div class="flex-wrap flex-1 flex flex-col items-stretch justify-between">
 			<ul class="flex flex-col p-2 text-left space-y-1">
