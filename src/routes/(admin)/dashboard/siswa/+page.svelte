@@ -5,22 +5,25 @@
 
 	type ISelected = {
 		kelas: number;
-		rombel: string;
+		rombel: {
+			nama: string;
+			wali: string;
+		};
 	};
 	let selectedKelas: ISelected;
 
-	$: kelas = dataSiswa.filter((cek) => cek.kelas == selectedKelas?.kelas)[0]['rombel'];
-	$: rombel = kelas.filter((cek) => cek.nama == selectedKelas?.rombel)[0];
-	const wali = dataRombel
-		.filter((cek) => cek.kelas == selectedKelas?.kelas)[0]
-		['rombel'].filter((cek) => cek.nama == selectedKelas?.rombel)[0];
+	// $: kelas = dataSiswa.filter((cek) => cek.kelas == selectedKelas?.kelas)[0]['rombel'];
+	// $: rombel = kelas.filter((cek) => cek.nama == selectedKelas?.rombel)[0];
+	let wali = dataRombel;
+	// 	.filter((cek) => cek.kelas == selectedKelas?.kelas)[0]
+	// 	['rombel'].filter((cek) => cek.nama == selectedKelas?.rombel)[0];
 
-	const loadRombel: MouseEventHandler<HTMLButtonElement> = (ev) => {
-		const data = JSON.parse(ev.currentTarget.id);
-		selectedKelas.rombel = data['rombel'];
-		selectedKelas.kelas = data['kelas'];
-	};
-	export let data: PageData;
+	// const loadRombel: MouseEventHandler<HTMLButtonElement> = (ev) => {
+	// 	const data = JSON.parse(ev.currentTarget.id);
+	// 	selectedKelas.rombel = data['rombel'];
+	// 	selectedKelas.kelas = data['kelas'];
+	// };
+	// export let data: PageData;
 </script>
 
 <div class="grid grid-flow-col h-screen">

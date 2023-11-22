@@ -4,6 +4,7 @@
 
 	export let data: PageData;
 
+	let expandTable = false;
 	let hideMenu = false;
 	let loading = false;
 
@@ -14,9 +15,17 @@
 	<div class="{hideMenu ? 'w-full' : 'w-[80%]'} flex flex-col">
 		<div class="mb-2 mr-2 flex justify-between">
 			<h2 class="p-2 text-center sm:text-left">daftar jenis pegawai</h2>
-			<button on:click|preventDefault={() => (hideMenu = !hideMenu)} class="p-2 bg-blue-300 rounded"
-				>tampilkan menu</button
-			>
+			<div class="flex justify-between space-x-2">
+				<button
+					on:click|preventDefault={() => (expandTable = !expandTable)}
+					class="p-2 bg-red-300 rounded">{expandTable ? 'minimalkan' : 'lihat semua'}</button
+				>
+				<button
+					on:click|preventDefault={() => (hideMenu = !hideMenu)}
+					class="p-2 bg-blue-300 rounded"
+					>{hideMenu ? '« tampilkan menu' : 'sembunyikan menu »'}</button
+				>
+			</div>
 		</div>
 		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
 			<div class="h-full overflow-y-auto">
@@ -38,11 +47,13 @@
 									<th scope="col" class="px-2 py-3 text-center">Nama</th>
 									<th scope="col" class="px-2 py-3 text-center">TTL</th>
 									<th scope="col" class="px-2 py-3 text-center">Alamat</th>
-									<th scope="col" class="px-2 py-3 text-center">JK</th>
 									<th scope="col" class="px-2 py-3 text-center">Jabatan</th>
-									<th scope="col" class="px-2 py-3 text-center">Email</th>
-									<th scope="col" class="px-2 py-3 text-center">Password</th>
 									<th scope="col" class="px-2 py-3 text-center">Telepon</th>
+									{#if expandTable}
+										<th scope="col" class="px-2 py-3 text-center">JK</th>
+										<th scope="col" class="px-2 py-3 text-center">Email</th>
+										<th scope="col" class="px-2 py-3 text-center">Password</th>
+									{/if}
 								</tr>
 							</thead>
 							<tbody>
@@ -63,11 +74,13 @@
 										<td class="px-2 py-2">{item.name}</td>
 										<td class="px-2 py-2">{item.born}, {item.birth}</td>
 										<td class="px-2 py-2">{item.domicile}</td>
-										<td class="px-2 py-2 text-center">{item.gender}</td>
 										<td class="px-2 py-2 text-center">{item.status}</td>
-										<td class="px-2 py-2 text-end">{item.email}</td>
-										<td class="px-2 py-2 text-center">{item.password}</td>
 										<td class="px-2 py-2 text-center">{item.phone}</td>
+										{#if expandTable}
+											<td class="px-2 py-2 text-center">{item.gender}</td>
+											<td class="px-2 py-2 text-end">{item.email}</td>
+											<td class="px-2 py-2 text-center">{item.password}</td>
+										{/if}
 									</tr>
 								{/each}
 							</tbody>
