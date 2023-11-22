@@ -23,7 +23,7 @@
 	};
 </script>
 
-<div class="h-full flex flex-col overflow-y-scroll">
+<div class="h-full flex flex-col overflow-y-auto">
 	<h1 class="p-4 font-semibold mb-4">Tambah Ke-Pegawaian</h1>
 	<form method="POST" class="flex-1 flex flex-col justify-between p-4">
 		<div class="grid gap-6 mb-6 md:grid-cols-2 text-left">
