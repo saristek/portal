@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>{$page.data.title ?? 'Portal Sransa | by Saristek'}</title>
+	<title>{$page.data.title ?? 'Dapodik Sransa'}</title>
 </svelte:head>
 <Dashboard>
 	<slot />
