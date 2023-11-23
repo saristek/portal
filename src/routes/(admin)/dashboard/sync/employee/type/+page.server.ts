@@ -3,8 +3,8 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
     const base = {
-		title: 'Jenis Ke-Pegawaian'
-	};
+        title: 'Jenis Ke-Pegawaian'
+    };
 
     return {
         infoPage: base,
@@ -12,19 +12,16 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-    addNew: async ({ request , locals}) => {
+    addNew: async ({ request, locals }) => {
         const formData = Object.fromEntries(await request.formData())
 
-        const {data, error} = await locals.supabase.from('employee_type').insert({
+        const { data, error } = await locals.supabase.from('employee_type').insert({
             name: formData.name
         })
 
-        if (error) {
-            return new Error
-        }
+        if (error) return new Error(error.message)
 
-        
-        console.log(data)
-        console.log(formData)
+
+        return { success: true };
     }
 };

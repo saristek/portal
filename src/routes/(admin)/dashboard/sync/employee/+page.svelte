@@ -1,20 +1,40 @@
+<script context="module" lang="ts">
+	type IData = {
+		id: string;
+		name: string;
+		born: string;
+		birth: string;
+		domicile: string;
+		gender: string;
+		status: string;
+		phone: string;
+		email: string;
+		password: string;
+	};
+</script>
+
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { client } from '$lib/hook/supabase';
 
 	let expandTable = false;
 	let hideMenu = false;
-	let loading = false;
 
-	const { employee } = data;
+	const loadEmployee = async () => {
+		const { data, error } = await client.from('employee').select();
+
+		if (error) {
+			throw new Error(error.message);
+		}
+
+		return data as IData[];
+	};
 </script>
 
 <div class="flex-1 flex sm:flex-row flex-col p-2">
 	<div class="{hideMenu ? 'w-full' : 'w-[80%]'} flex flex-col">
 		<div class="mb-2 mr-2 flex justify-between">
-			<h2 class="p-2 text-center sm:text-left">daftar jenis pegawai</h2>
+			<h2 class="p-2 text-center sm:text-left">daftar pegawai</h2>
 			<div class="flex justify-between space-x-2">
 				<button
 					on:click|preventDefault={() => (expandTable = !expandTable)}
@@ -30,12 +50,9 @@
 		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
 			<div class="h-full overflow-y-auto">
 				<div id="data" class="min-h-fit max-h-32">
-					{#if loading}
-						<p class="text-blue-600">loading: coba mengunduh data</p>
-					{:else if employee.length == 0}
-						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
-						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
-					{:else}
+					{#await loadEmployee()}
+						<p class="text-blue-600">loading: memperbarui data</p>
+					{:then value}
 						<table
 							class="border-collapse border border-slate-400 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-gray-100"
 						>
@@ -57,7 +74,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each employee as item}
+								{#each value as item}
 									<tr>
 										<td class="px-2 py-3 text-center font-light text-xs flex space-x-1">
 											<button
@@ -85,13 +102,19 @@
 								{/each}
 							</tbody>
 						</table>
-					{/if}
+					{:catch error}
+						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
+						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
+						<code>
+							{error}
+						</code>
+					{/await}
 				</div>
 			</div>
 		</div>
 	</div>
 	{#if !hideMenu}
-		<div class="w-[20%] flex flex-col p-2">
+		<div class="w-[20%] flex flex-col p-2 bg-gray-300 rounded">
 			<div class="flex-1 flex flex-col pl-1">
 				<div id="head_menu" class="mb-2 text-left">aksi</div>
 				<button
