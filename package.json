@@ -44,7 +44,12 @@
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/auth-ui-svelte": "^0.2.7",
     "@supabase/supabase-js": "^2.33.2",
+    "@sveltering/shtz": "^0.0.36",
+    "@trpc/client": "^10.44.0",
+    "@trpc/server": "^10.44.0",
+    "delay": "^6.0.0",
     "node-routeros": "^1.6.9",
-    "svelte-fa": "^3.0.4"
+    "svelte-fa": "^3.0.4",
+    "trpc-sveltekit": "^3.5.22"
   }
 }
