@@ -1,4 +1,4 @@
-import { t } from '$trpc/init';
+import { t } from '$trpc';
 import routes from '$trpc/routes';
 
 export type Router = typeof routes;
