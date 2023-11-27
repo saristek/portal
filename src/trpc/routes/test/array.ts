@@ -43,7 +43,6 @@ export default t.router({
                 item: input.item,
             };
         }),
-
     friends: t.procedure.input(z.object({ friend1: z.string(), friend2: z.string() })).mutation(async function ({ input }) {
         await sleep(0.3, 1.5);
         return {

@@ -14,5 +14,4 @@ export default t.router({
         }
         return `Welcome ${name}`;
     }),
-    many
 });
