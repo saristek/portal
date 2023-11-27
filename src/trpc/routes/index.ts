@@ -1,6 +1,6 @@
 import { sleep } from '$lib/helper/function';
 import many from '$trpc/routes/test/array'
-import { t } from '$trpc';
+import { t } from '$trpc/init';
 import { z } from 'zod';
 
 export default t.router({

@@ -1,4 +1,4 @@
-import { t } from '$trpc';
+import { t } from '$trpc/init';
 import routes from '$trpc/routes';
 import type { TRPCLocalCreate } from '@sveltering/shtz/types';
 

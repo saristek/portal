@@ -1,4 +1,4 @@
-import { t } from "$trpc";
+import { t } from "$trpc/init";
 import { z } from "zod";
 import * as crypto from "crypto";
 import { sleep, strContainsError } from "$lib/helper/function";
