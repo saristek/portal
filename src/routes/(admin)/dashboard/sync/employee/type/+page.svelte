@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts">
+	import Spiner from '$lib/components/Spiner.svelte';
+
 	import { enhance } from '$app/forms';
 	import { client } from '$lib/hook/supabase';
 	import type { MouseEventHandler } from 'svelte/elements';
@@ -17,6 +19,7 @@
 	let formBusy = false;
 	let tableBusy = true;
 	let formMessage = 'sedang memuat edit';
+	let tableMessage = 'loading: memuat tabel';
 
 	let selectId = '';
 	let error = '';
@@ -57,6 +60,7 @@
 	};
 	const deleteType: MouseEventHandler<HTMLButtonElement> = async (ev) => {
 		// prevent anything
+		tableMessage = 'menghapus data dari dalam tabel';
 		tableBusy = true;
 		const id = ev.currentTarget.id;
 		const { status, error: err } = await client.from('employee_type').delete().match({ id: id });
@@ -89,11 +93,17 @@
 					action={dataForm.id ? '?/edit' : '?/add'}
 					use:enhance={() => {
 						formMessage = dataForm.id ? 'sedang memperbarui' : 'sedang menambahkan';
+						tableMessage = dataForm.id
+							? 'memperbarui data tabel'
+							: 'menambahkan data kedalam tabel';
 						formBusy = true;
+						tableBusy = true;
+
 						dataForm = { id: '', name: '' };
 						return async ({ result }) => {
 							if ((result.type = 'success')) {
 								formBusy = false;
+								tableBusy = false;
 								// reload table
 								listType = await loadType();
 								// reset form
@@ -150,14 +160,17 @@
 		</div>
 		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
 			<div class="h-full overflow-y-auto">
-				<div id="data" class="min-h-fit max-h-32">
-					{#if tableBusy}
-						<p class="pt-10 text-blue-600">loading: memuat tabel</p>
-					{:else if error}
-						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
-						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
-						<code>{error}</code>
-					{:else if listType}
+				{#if tableBusy}
+				<div class="h-full flex flex-col justify-center items-center">
+					<Spiner />
+					<p class="pt-10 text-blue-600">{tableMessage}</p>
+					</div>
+				{:else if error}
+					<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
+					<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
+					<code>{error}</code>
+				{:else if listType}
+					<div id="data" class="h-full min-h-fit max-h-32">
 						<table
 							class="border-collapse border border-slate-400 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-gray-100"
 						>
@@ -191,8 +204,8 @@
 								{/each}
 							</tbody>
 						</table>
-					{/if}
-				</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
