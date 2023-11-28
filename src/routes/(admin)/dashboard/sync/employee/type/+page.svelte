@@ -10,73 +10,104 @@
 	import { client } from '$lib/hook/supabase';
 	import type { MouseEventHandler } from 'svelte/elements';
 	import type { ActionData } from './$types';
+	import { onMount } from 'svelte';
 
-	export let form: ActionData;
-
-	let expandTable = false;
+	// option
 	let hideMenu = false;
+	let formBusy = false;
+	let tableBusy = true;
+	let formMessage = 'sedang memuat edit';
 
 	let selectId = '';
+	let error = '';
 
-	let pegawai = {
-		name: ''
+	// function
+	const loadType = async () => {
+		const { data, error: err } = await client.from('employee_type').select();
+		if (err) error = err.message;
+		tableBusy = false;
+		return data as IData[];
 	};
-
 	const loadEdit = async (target: string) => {
 		const { data } = await client.from('employee_type').select().eq('id', target).single();
+		formBusy = false;
 		return data as IData;
 	};
 
-	$: isEdit = Object.values(pegawai).every((x) => x === null || x === '');
-
-	const loadEmployeeType = async () => {
-		const { data, error } = await client.from('employee_type').select();
-		if (error) throw new Error(error.message);
-
-		return data as IData[];
+	// form init
+	let dataForm = {
+		id: '',
+		name: ''
 	};
 
-	let dataEmployeeType = loadEmployeeType();
+	// load table
+	let listType: IData[];
 
-	let dataEdit: IData;
+	$: edited = dataForm.name != '';
 
-	$: if (form?.success) dataEmployeeType = loadEmployeeType();
-
-	const hapusPegawai: MouseEventHandler<HTMLButtonElement> = async (ev) => {
-		const id = ev.currentTarget.id;
-		const { status, error } = await client.from('employee_type').delete().match({ id: id });
-
-		if (error) throw new Error(error.message);
-		if (status == 204) dataEmployeeType = loadEmployeeType();
-	};
-
-	const editPegawai: MouseEventHandler<HTMLButtonElement> = async (ev) => {
+	// action
+	const editType: MouseEventHandler<HTMLButtonElement> = async (ev) => {
+		// prevent anything
+		formBusy = true;
 		selectId = ev.currentTarget.id;
 
-		dataEdit = await loadEdit(selectId);
+		// for form edit consumer
+		dataForm = await loadEdit(selectId);
+		edited = true;
 	};
+	const deleteType: MouseEventHandler<HTMLButtonElement> = async (ev) => {
+		// prevent anything
+		tableBusy = true;
+		const id = ev.currentTarget.id;
+		const { status, error: err } = await client.from('employee_type').delete().match({ id: id });
+
+		if (err) error = err.message;
+
+		if (status == 204) {
+			// reload list
+			listType = await loadType();
+		}
+	};
+
+	onMount(async () => {
+		listType = await loadType();
+	});
 </script>
 
 <div class="flex-1 flex sm:flex-row flex-col p-2">
 	{#if !hideMenu}
 		<div class="sm:order-2 w-full sm:w-[30%] flex flex-col bg-gray-300 rounded">
 			<h2 class="p-2 text-center sm:text-left">tambah jenis pegawai baru</h2>
-			{#await dataEdit}
+			{#if formBusy}
 				<div class="h-full bg-gray-600 rounded p-2 flex justify-center items-center">
-					<p class="text-white">sedang memuat edit</p>
+					<p class="text-white">{formMessage}</p>
 				</div>
-			{:then value}
+			{:else}
 				<form
 					class="rounded bg-gray-300 p-2 h-full flex flex-col justify-between"
 					method="POST"
-					action="?/addNew"
-					use:enhance
+					action={dataForm.id ? '?/edit' : '?/add'}
+					use:enhance={() => {
+						formMessage = dataForm.id ? 'sedang memperbarui' : 'sedang menambahkan';
+						formBusy = true;
+						dataForm = { id: '', name: '' };
+						return async ({ result }) => {
+							if ((result.type = 'success')) {
+								formBusy = false;
+								// reload table
+								listType = await loadType();
+								// reset form
+							}
+						};
+					}}
 				>
+					<input type="text" name="id" class="hidden" value={dataForm.id} />
 					<div class="my-2 text-left">
 						<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 							>Nama</label
 						>
 						<input
+							bind:value={dataForm.name}
 							type="text"
 							id="name"
 							name="name"
@@ -87,25 +118,23 @@
 					</div>
 					<div class="flex flex-col space-y-2">
 						<button
-							disabled={isEdit}
-							on:click|preventDefault={() => (pegawai = { name: '' })}
-							class="w-full text-white {isEdit
-								? 'bg-gray-500'
-								: 'bg-gray-700 hover:bg-gray-800'} focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+							disabled={!edited}
+							on:click|preventDefault={() => (dataForm = { id: '', name: '' })}
+							class="w-full text-white {edited
+								? 'bg-gray-700 hover:bg-gray-800'
+								: 'bg-gray-500'} focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
 							>batalkan</button
 						>
-						{#if !isEdit}
+						{#if edited}
 							<button
 								type="submit"
 								class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-								>{selectId ? 'perbarui' : 'kirim'}</button
+								>{dataForm.id ? 'perbarui' : 'kirim'}</button
 							>
 						{/if}
 					</div>
 				</form>
-			{:catch error}
-				terjadi kesalahan
-			{/await}
+			{/if}
 		</div>
 	{/if}
 	<div class="w-full {hideMenu ? 'sm:w-full' : 'sm:w-[70%]'} flex flex-col">
@@ -122,9 +151,13 @@
 		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
 			<div class="h-full overflow-y-auto">
 				<div id="data" class="min-h-fit max-h-32">
-					{#await dataEmployeeType}
-						<p class="text-blue-600">loading: memperbarui data</p>
-					{:then value}
+					{#if tableBusy}
+						<p class="pt-10 text-blue-600">loading: memuat tabel</p>
+					{:else if error}
+						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
+						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
+						<code>{error}</code>
+					{:else if listType}
 						<table
 							class="border-collapse border border-slate-400 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-gray-100"
 						>
@@ -138,19 +171,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each value as item, id}
+								{#each listType as item, id}
 									<tr>
 										<td class="px-2 py-2 text-center">{id + 1}</td>
 										<td class="px-2 py-2">{item.name}</td>
 										<td class="px-2 py-3 text-center font-light text-xs">
 											<button
 												id={item.id}
-												on:click|preventDefault={hapusPegawai}
+												on:click|preventDefault={deleteType}
 												class="bg-red-300 hover:bg-red-400 p-1 rounded text-white">hapus</button
 											>
 											<button
 												id={item.id}
-												on:click|preventDefault={editPegawai}
+												on:click|preventDefault={editType}
 												class="bg-blue-300 hover:bg-blue-400 p-1 rounded text-white">edit</button
 											>
 										</td>
@@ -158,11 +191,7 @@
 								{/each}
 							</tbody>
 						</table>
-					{:catch error}
-						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
-						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
-						<code>{error}</code>
-					{/await}
+					{/if}
 				</div>
 			</div>
 		</div>
