@@ -184,7 +184,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each listType as item, id}
+								{#each listType as item, id(item.id)}
 									<tr>
 										<td class="px-2 py-2 text-center">{id + 1}</td>
 										<td class="px-2 py-2">{item.name}</td>
