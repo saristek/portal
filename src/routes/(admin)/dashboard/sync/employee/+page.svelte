@@ -14,25 +14,290 @@
 </script>
 
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { client } from '$lib/hook/supabase';
+	import { enhance } from '$app/forms';
 
+	import { goto } from '$app/navigation';
+	import Spiner from '$lib/components/Spiner.svelte';
+	import { client } from '$lib/hook/supabase';
+	import { onMount } from 'svelte';
+
+	let sideMode = 'default';
 	let expandTable = false;
 	let hideMenu = false;
+	let formBusy = false;
+	let tableBusy = true;
+	let formMessage = 'sedang memuat edit';
+	let tableMessage = 'loading: memuat tabel';
+
+	let error = '';
+
+	// function
+	const loadType = async () => {
+		const DataQuery = client.from('employee').select();
+		type TypeQuery = QueryData<typeof DataQuery>;
+
+		const { data, error: err } = await DataQuery;
+		if (err) error = err.message;
+		tableBusy = false;
+
+		const Response: TypeQuery = data;
+		return Response;
+	};
+
+	// form init
+	let initForm = {
+		id: '',
+		name: '',
+		nip: '',
+		address: '',
+		type: '',
+		phone: '',
+		email: '',
+		password: ''
+	};
+
+	let dataForm: Partial<typeof initForm> = { ...initForm };
+
+	// load table
+	let listEmployee: IData[];
+
+	$: edited =
+		dataForm.name != '' ||
+		dataForm.nip != '' ||
+		dataForm.address != '' ||
+		dataForm.phone != '' ||
+		dataForm.email != '' ||
+		dataForm.password != '';
 
 	const loadEmployee = async () => {
-		const { data, error } = await client.from('employee').select();
+		const DataQuery = client.from('employee').select();
+		type TypeQuery = QueryData<typeof DataQuery>;
+
+		const { data, error } = await DataQuery;
 
 		if (error) {
 			throw new Error(error.message);
 		}
 
-		return data as IData[];
+		const Response: TypeQuery = data;
+		return Response;
 	};
+
+	onMount(async () => {
+		listEmployee = await loadType();
+	});
 </script>
 
 <div class="flex-1 flex sm:flex-row flex-col p-2">
-	<div class="{hideMenu ? 'w-full' : 'w-[80%]'} flex flex-col">
+	<!-- side content -->
+	{#if !hideMenu}
+		<div
+			class="sm:order-2 w-full {sideMode == 'default'
+				? 'sm:w-[20%]'
+				: 'sm:w-[30%]'} flex flex-col p-2 bg-gray-300 rounded"
+		>
+			{#if sideMode == 'default'}
+				<div class="flex-1 flex flex-col pl-1">
+					<div id="head_menu" class="mb-2 text-left">aksi</div>
+					<button
+						on:click|preventDefault={() => goto('/dashboard/sync/employee/type')}
+						type="button"
+						class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+						>Atur Jenis Pegawai</button
+					>
+					<button
+						on:click|preventDefault={() => (sideMode = 'form')}
+						type="button"
+						class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+						>Tambah Pegawai</button
+					>
+				</div>
+				<div class="flex flex-col">
+					<div id="head_menu" class="mb-2 text-left">sinkron dengan excel</div>
+					<button
+						type="button"
+						class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+						>Unduh Template</button
+					>
+					<button
+						type="button"
+						class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+						>Upload Excel</button
+					>
+				</div>
+			{:else if sideMode == 'form'}
+				<div class="flex justify-between items-center">
+					<h2 class="p-2 text-center sm:text-left">tambah jenis pegawai baru</h2>
+					<button
+						on:click|preventDefault={() => (sideMode = 'default')}
+						type="button"
+						class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+						>kembali</button
+					>
+				</div>
+				{#if formBusy}
+					<div class="h-full bg-gray-600 rounded p-2 flex justify-center items-center">
+						<p class="text-white">{formMessage}</p>
+					</div>
+				{:else}
+					<form
+						class="rounded bg-gray-300 p-2 h-full flex flex-col justify-between"
+						method="POST"
+						action={dataForm.id ? '?/edit' : '?/add'}
+						use:enhance={() => {
+							formMessage = dataForm.id ? 'sedang memperbarui' : 'sedang menambahkan';
+							tableMessage = dataForm.id
+								? 'memperbarui data tabel'
+								: 'menambahkan data kedalam tabel';
+							formBusy = true;
+							tableBusy = true;
+
+							dataForm = { id: '', name: '' };
+							return async ({ result }) => {
+								if ((result.type = 'success')) {
+									formBusy = false;
+									tableBusy = false;
+									// reload table
+									listEmployee = await loadType();
+									// reset form
+								}
+							};
+						}}
+					>
+						<input type="text" name="id" class="hidden" value={dataForm.id} />
+						<div>
+							<h2 class="font-medium text-center">Biodata</h2>
+							<div class="mb-2 text-left">
+								<label
+									for="name"
+									class="block my-1 text-sm font-medium text-gray-900 dark:text-white"
+									>Nama Lengkap</label
+								>
+								<input
+									bind:value={dataForm.name}
+									type="text"
+									id="name"
+									name="name"
+									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="contoh: pengajar"
+									required
+								/>
+							</div>
+							<div class="mb-2 text-left">
+								<label
+									for="nip"
+									class="block my-1 text-sm font-medium text-gray-900 dark:text-white">NIP</label
+								>
+								<input
+									bind:value={dataForm.nip}
+									type="number"
+									id="nip"
+									name="nip"
+									class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="199205142023052008"
+									required
+								/>
+							</div>
+							<div class="mb-2 text-left">
+								<label
+									for="address"
+									class="block my-1 text-sm font-medium text-gray-900 dark:text-white">Alamat</label
+								>
+								<input
+									bind:value={dataForm.address}
+									type="text"
+									id="address"
+									name="address"
+									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="selomartani"
+									required
+								/>
+							</div>
+							<div class="mb-2 text-left">
+								<label
+									for="phone"
+									class="block my-1 text-sm font-medium text-gray-900 dark:text-white"
+									>Nomor Telp</label
+								>
+								<input
+									bind:value={dataForm.phone}
+									type="tel"
+									id="phone"
+									name="phone"
+									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="(+62) 89-6492-46450"
+									required
+								/>
+							</div>
+							<div class="mt-10">
+								<h2 class="font-medium text-center">Belajar ID</h2>
+								<div class="mb-2 text-left">
+									<label
+										for="email"
+										class="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+										>Email</label
+									>
+									<input
+										bind:value={dataForm.email}
+										type="email"
+										id="email"
+										name="email"
+										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										placeholder="eko12@guru.smp.belajar.id"
+										required
+									/>
+								</div>
+								<div class="mb-2 text-left">
+									<label
+										for="password"
+										class="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+										>Password</label
+									>
+									<input
+										bind:value={dataForm.password}
+										type="password"
+										id="password"
+										name="password"
+										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										placeholder="rahasia12"
+										required
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-col space-y-2">
+							<button
+								disabled={!edited}
+								type="reset"
+								on:click|preventDefault={() => (dataForm = { ...initForm })}
+								class="w-full text-white {edited
+									? 'bg-gray-700 hover:bg-gray-800'
+									: 'bg-gray-500'} focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+								>batalkan</button
+							>
+							{#if edited}
+								<button
+									type="submit"
+									class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+									>{dataForm.id ? 'perbarui' : 'kirim'}</button
+								>
+							{/if}
+						</div>
+					</form>
+				{/if}
+			{:else}
+				error...
+			{/if}
+		</div>
+	{/if}
+	<!-- main content -->
+	<div
+		class="w-full {hideMenu
+			? 'w-full'
+			: sideMode == 'default'
+			? 'w-[80%]'
+			: 'w-[70%]'} flex flex-col"
+	>
 		<div class="mb-2 mr-2 flex justify-between">
 			<h2 class="p-2 text-center sm:text-left">daftar pegawai</h2>
 			<div class="flex justify-between space-x-2">
@@ -49,10 +314,17 @@
 		</div>
 		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
 			<div class="h-full overflow-y-auto">
-				<div id="data" class="min-h-fit max-h-32">
-					{#await loadEmployee()}
-						<p class="text-blue-600">loading: memperbarui data</p>
-					{:then value}
+				{#if tableBusy}
+					<div class="h-full flex flex-col justify-center items-center">
+						<Spiner />
+						<p class="pt-10 text-blue-600">{tableMessage}</p>
+					</div>
+				{:else if error}
+					<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
+					<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
+					<code>{error}</code>
+				{:else if listEmployee}
+					<div id="data" class="min-h-fit max-h-32">
 						<table
 							class="border-collapse border border-slate-400 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-gray-100"
 						>
@@ -74,7 +346,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each value as item}
+								{#each listEmployee as item}
 									<tr>
 										<td class="px-2 py-3 text-center font-light text-xs flex space-x-1">
 											<button
@@ -102,47 +374,9 @@
 								{/each}
 							</tbody>
 						</table>
-					{:catch error}
-						<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
-						<p class="mt-4">silahkan buat data baru atau hubungi operator</p>
-						<code>
-							{error}
-						</code>
-					{/await}
-				</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
-	{#if !hideMenu}
-		<div class="w-[20%] flex flex-col p-2 bg-gray-300 rounded">
-			<div class="flex-1 flex flex-col pl-1">
-				<div id="head_menu" class="mb-2 text-left">aksi</div>
-				<button
-					on:click|preventDefault={() => goto('/dashboard/sync/employee/type')}
-					type="button"
-					class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-					>Atur Jenis Pegawai</button
-				>
-				<button
-					on:click|preventDefault={() => goto('/dashboard/sync/employee/add')}
-					type="button"
-					class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-					>Tambah Pegawai</button
-				>
-			</div>
-			<div class="flex flex-col">
-				<div id="head_menu" class="mb-2 text-left">sinkron dengan excel</div>
-				<button
-					type="button"
-					class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-					>Unduh Template</button
-				>
-				<button
-					type="button"
-					class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-					>Upload Excel</button
-				>
-			</div>
-		</div>
-	{/if}
 </div>

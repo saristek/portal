@@ -11,7 +11,6 @@
 	import { enhance } from '$app/forms';
 	import { client } from '$lib/hook/supabase';
 	import type { MouseEventHandler } from 'svelte/elements';
-	import type { ActionData } from './$types';
 	import { onMount } from 'svelte';
 
 	// option
@@ -26,15 +25,25 @@
 
 	// function
 	const loadType = async () => {
+		const DataQuery = client.from('employee_type').select();
+		type TypeQuery = QueryData<typeof DataQuery>;
+
 		const { data, error: err } = await client.from('employee_type').select();
 		if (err) error = err.message;
 		tableBusy = false;
-		return data as IData[];
+
+		const Response: TypeQuery = data;
+		return Response;
 	};
 	const loadEdit = async (target: string) => {
-		const { data } = await client.from('employee_type').select().eq('id', target).single();
+		const DataQuery = client.from('employee_type').select().eq('id', target).single();
+		type TypeQuery = QueryData<typeof DataQuery>;
+
+		const { data } = await DataQuery;
 		formBusy = false;
-		return data as IData;
+
+		const Response: TypeQuery = data;
+		return Response;
 	};
 
 	// form init
@@ -161,9 +170,9 @@
 		<div class="flex-1 bg-gray-200 px-2 overflow-hidden">
 			<div class="h-full overflow-y-auto">
 				{#if tableBusy}
-				<div class="h-full flex flex-col justify-center items-center">
-					<Spiner />
-					<p class="pt-10 text-blue-600">{tableMessage}</p>
+					<div class="h-full flex flex-col justify-center items-center">
+						<Spiner />
+						<p class="pt-10 text-blue-600">{tableMessage}</p>
 					</div>
 				{:else if error}
 					<p class="text-red-600">mohon maaf: tidak ada data yang bisa ditampilkan</p>
@@ -184,7 +193,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each listType as item, id(item.id)}
+								{#each listType as item, id (item.id)}
 									<tr>
 										<td class="px-2 py-2 text-center">{id + 1}</td>
 										<td class="px-2 py-2">{item.name}</td>

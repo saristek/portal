@@ -1,5 +1,6 @@
 import { SupabaseClient, Session } from '@supabase/supabase-js';
 import type { Themes } from './hooks.server';
+import type { Database } from '$types/supabase';
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
@@ -10,7 +11,7 @@ declare global {
 			// resolve ssr middleware
 			// hooks.server.ts
 			theme: string | null;
-			supabase: SupabaseClient;
+			supabase: SupabaseClient<Database>;
 			getSession(): Promise<Session | null>;
 		}
 		interface PageData {

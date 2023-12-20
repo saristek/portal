@@ -16,6 +16,12 @@
 			"$trpc/*": [
 				"./src/trpc/*"
 			],
+			"$types": [
+				"./src/types"
+			],
+			"$types/*": [
+				"./src/types/*"
+			],
 			"$lib": [
 				"./src/lib"
 			],

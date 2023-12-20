@@ -32,7 +32,8 @@ const config = {
 			})
 			: adapterAuto(),
 		alias: {
-			$trpc: './src/trpc'
+			$trpc: './src/trpc',
+			$types: './src/types'
 		},
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH
