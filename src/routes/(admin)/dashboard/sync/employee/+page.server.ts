@@ -35,9 +35,17 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(await request.formData());
 
 		const { data, error } = await locals.supabase
-			.from('employee_type')
+			.from('employee')
 			.update({
-				// name: formData.name
+				name: formData.name,
+				email: formData.email,
+				password: formData.password,
+				status: formData.status,
+				gender: formData.gender,
+				domicile: formData.domicile,
+				phone: formData.phone,
+				born: formData.born,
+				birth: formData.birth
 			})
 			.match({ id: formData.id });
 

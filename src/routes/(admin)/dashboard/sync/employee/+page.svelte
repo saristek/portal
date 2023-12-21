@@ -24,8 +24,9 @@
 	import { client } from '$lib/hook/supabase';
 	import type { Tables } from '$types/supabase';
 	import { onMount } from 'svelte';
+	import type { MouseEventHandler } from 'svelte/elements';
 
-	let selected: string;
+	let selectId = '';
 	let sideMode = 'default';
 	let expandTable = false;
 	let hideMenu = false;
@@ -41,14 +42,14 @@
 	const loadEmployee = async () => {
 		const DataQuery = client
 			.from('employee')
-			.select('name, gender, email, password, birth, born, domicile, phone, status(id, name)');
+			.select('id, name, gender, email, password, birth, born, domicile, phone, status(id, name)');
 		type TypeQuery = QueryData<typeof DataQuery>;
 
 		const { data, error: err } = await DataQuery;
 		if (err) error = err.message;
 		tableBusy = false;
 
-		console.log(data)
+		console.log(data);
 
 		const Response: TypeQuery = data;
 		return Response;
@@ -61,6 +62,16 @@
 
 		if (err) error = err.message;
 		typeBusy = false;
+
+		const Response: TypeQuery = data;
+		return Response;
+	};
+	const loadEdit = async (target: string) => {
+		const DataQuery = client.from('employee').select().eq('id', target).single();
+		type TypeQuery = QueryData<typeof DataQuery>;
+
+		const { data } = await DataQuery;
+		formBusy = false;
 
 		const Response: TypeQuery = data;
 		return Response;
@@ -98,6 +109,32 @@
 		dataForm.born != '' ||
 		dataForm.status != '' ||
 		dataForm.gender != '';
+
+	// action
+	const editType: MouseEventHandler<HTMLButtonElement> = async (ev) => {
+		// prevent anything
+		formBusy = true;
+		selectId = ev.currentTarget.id;
+
+		// for form edit consumer
+		dataForm = await loadEdit(selectId);
+		edited = true;
+	};
+	const deleteEmployee: MouseEventHandler<HTMLButtonElement> = async (ev) => {
+		// prevent anything
+		tableMessage = 'menghapus data dari dalam tabel';
+		tableBusy = true;
+		const id = ev.currentTarget.id;
+
+		const { status, error: err } = await client.from('employee').delete().match({ id: id });
+
+		if (err) error = err.message;
+
+		if (status == 204) {
+			// reload list
+			listEmployee = await loadEmployee();
+		}
+	};
 
 	onMount(async () => {
 		listEmployee = await loadEmployee();
@@ -461,7 +498,7 @@
 										<td class="px-2 py-3 text-center font-light text-xs flex space-x-1">
 											<button
 												id={item.id}
-												on:click|preventDefault={() => {}}
+												on:click|preventDefault={deleteEmployee}
 												class="bg-red-300 hover:bg-red-400 p-1 rounded text-white">hapus</button
 											>
 											<button
