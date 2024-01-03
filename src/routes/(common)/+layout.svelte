@@ -44,7 +44,7 @@
 <Common>
 	{#key data.currentPath}
 		<main
-			class="flex-1 grid w-auto bg-gray-100 dark:bg-gray-800 overflow-y-scroll"
+			class="flex-1 grid w-auto bg-gray-100 dark:bg-gray-800 overflow-y-auto"
 			in:fly={{ x: -30, duration: 200, delay: 150 }}
 			out:fly={{ x: -30, duration: 150 }}
 		>
