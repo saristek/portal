@@ -27,7 +27,7 @@
 	import type { MouseEventHandler } from 'svelte/elements';
 
 	let selectId = '';
-	let sideMode = 'default';
+	let sideMode: 'default' | 'form' = 'default';
 	let expandTable = false;
 	let hideMenu = false;
 	let formBusy = false;
@@ -42,7 +42,9 @@
 	const loadEmployee = async () => {
 		const DataQuery = client
 			.from('employee')
-			.select('id, name, gender, email, password, birth, born, domicile, phone, status(id, name)');
+			.select(
+				'id, name, gender, email, password, birth, born, domicile, phone, status(id, name), nip'
+			);
 		type TypeQuery = QueryData<typeof DataQuery>;
 
 		const { data, error: err } = await DataQuery;
@@ -75,6 +77,24 @@
 
 		const Response: TypeQuery = data;
 		return Response;
+	};
+	const enhanceOk = () => {
+		formMessage = dataForm.id ? 'sedang memperbarui' : 'sedang menambahkan';
+		tableMessage = dataForm.id ? 'memperbarui data tabel' : 'menambahkan data kedalam tabel';
+		formBusy = true;
+		tableBusy = true;
+
+		dataForm = { id: '', name: '' };
+		return async ({ result }) => {
+			console.log(result);
+			if ((result.type = 'success')) {
+				formBusy = false;
+				tableBusy = false;
+				// reload table
+				listEmployee = await loadEmployee();
+				// reset form
+			}
+		};
 	};
 
 	// form init
@@ -113,13 +133,16 @@
 	// action
 	const editType: MouseEventHandler<HTMLButtonElement> = async (ev) => {
 		// prevent anything
+		sideMode = 'form';
 		formBusy = true;
 		selectId = ev.currentTarget.id;
 
 		// for form edit consumer
 		dataForm = await loadEdit(selectId);
+		console.log(dataForm);
 		edited = true;
 	};
+
 	const deleteEmployee: MouseEventHandler<HTMLButtonElement> = async (ev) => {
 		// prevent anything
 		tableMessage = 'menghapus data dari dalam tabel';
@@ -201,26 +224,7 @@
 						class="rounded bg-gray-300 p-2 h-full flex flex-col justify-between"
 						method="POST"
 						action={dataForm.id ? '?/edit' : '?/add'}
-						use:enhance={() => {
-							formMessage = dataForm.id ? 'sedang memperbarui' : 'sedang menambahkan';
-							tableMessage = dataForm.id
-								? 'memperbarui data tabel'
-								: 'menambahkan data kedalam tabel';
-							formBusy = true;
-							tableBusy = true;
-
-							dataForm = { id: '', name: '' };
-							return async ({ result }) => {
-								console.log(result);
-								if ((result.type = 'success')) {
-									formBusy = false;
-									tableBusy = false;
-									// reload table
-									listEmployee = await loadEmployee();
-									// reset form
-								}
-							};
-						}}
+						use:enhance={enhanceOk}
 					>
 						<input type="text" name="id" class="hidden" value={dataForm.id} />
 						<div>
@@ -479,22 +483,34 @@
 								class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
 							>
 								<tr>
-									<th scope="col" class="w-10 px-2 py-3 text-center">aksi</th>
 									<th scope="col" class="px-2 py-3 text-center">Nama</th>
+									<th scope="col" class="px-2 py-3 text-center">NIP</th>
 									<th scope="col" class="px-2 py-3 text-center">TTL</th>
-									<th scope="col" class="px-2 py-3 text-center">Alamat</th>
 									<th scope="col" class="px-2 py-3 text-center">Jabatan</th>
 									<th scope="col" class="px-2 py-3 text-center">Telepon</th>
 									{#if expandTable}
 										<th scope="col" class="px-2 py-3 text-center">JK</th>
 										<th scope="col" class="px-2 py-3 text-center">Email</th>
 										<th scope="col" class="px-2 py-3 text-center">Password</th>
+										<th scope="col" class="px-2 py-3 text-center">Alamat</th>
 									{/if}
+									<th scope="col" class="w-10 px-2 py-3 text-center">aksi</th>
 								</tr>
 							</thead>
 							<tbody>
 								{#each listEmployee as item}
 									<tr>
+										<td class="px-2 py-2">{item.name}</td>
+										<td class="px-2 py-2">{item.nip}</td>
+										<td class="px-2 py-2 text-right">{item.born}, {item.birth}</td>
+										<td class="px-2 py-2 text-center">{item.status.name}</td>
+										<td class="px-2 py-2 text-center">{item.phone}</td>
+										{#if expandTable}
+											<td class="px-2 py-2 text-center">{item.gender}</td>
+											<td class="px-2 py-2 text-end">{item.email}</td>
+											<td class="px-2 py-2 text-center">{item.password}</td>
+											<td class="px-2 py-2 text-right">{item.domicile}</td>
+										{/if}
 										<td class="px-2 py-3 text-center font-light text-xs flex space-x-1">
 											<button
 												id={item.id}
@@ -503,20 +519,10 @@
 											>
 											<button
 												id={item.id}
-												on:click|preventDefault={() => {}}
+												on:click|preventDefault={editType}
 												class="bg-blue-300 hover:bg-blue-400 p-1 rounded text-white">edit</button
 											>
 										</td>
-										<td class="px-2 py-2">{item.name}</td>
-										<td class="px-2 py-2 text-right">{item.born}, {item.birth}</td>
-										<td class="px-2 py-2 text-right">{item.domicile}</td>
-										<td class="px-2 py-2 text-center">{item.status.name}</td>
-										<td class="px-2 py-2 text-center">{item.phone}</td>
-										{#if expandTable}
-											<td class="px-2 py-2 text-center">{item.gender}</td>
-											<td class="px-2 py-2 text-end">{item.email}</td>
-											<td class="px-2 py-2 text-center">{item.password}</td>
-										{/if}
 									</tr>
 								{/each}
 							</tbody>
