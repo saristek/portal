@@ -24,7 +24,8 @@ export const actions: Actions = {
 			domicile: formData.domicile,
 			phone: formData.phone,
 			born: formData.born,
-			birth: formData.birth
+			birth: formData.birth,
+			nip: formData.nip,
 		});
 
 		if (error) return new Error(error.message);
@@ -45,7 +46,8 @@ export const actions: Actions = {
 				domicile: formData.domicile,
 				phone: formData.phone,
 				born: formData.born,
-				birth: formData.birth
+				birth: formData.birth,
+				nip: formData.nip,
 			})
 			.match({ id: formData.id });
 
