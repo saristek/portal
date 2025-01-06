@@ -1,5 +1,7 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "public/build"],
 	"compilerOptions": {
 		"allowJs": true,
 		"checkJs": true,
@@ -9,6 +11,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+		"module": "es2015",
 		"moduleResolution": "bundler"
 	}
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
