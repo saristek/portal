@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
 	// Deklarasikan properti PageData untuk mendapatkan data dari load function
 	export let data: PageData;
@@ -95,7 +96,7 @@
 			<div class="mt-5 flex justify-center">
 				<img
 					class="w-full rounded-t-lg"
-					src={`http://portal.test/storage/${apiData.preview}`}
+					src={`${PUBLIC_BACKEND_URL}/storage/${apiData.preview}`}
 					alt="preview-card"
 				/>
 			</div>

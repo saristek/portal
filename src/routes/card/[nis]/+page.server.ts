@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
-import { BACKEND_API_URL } from '$env/static/private';
+	import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
 export const load: PageServerLoad = async ({ fetch, params }) => {
 	try {
-		const response = await fetch(`${BACKEND_API_URL}/card/${params.nis}`);
+		const response = await fetch(`${PUBLIC_BACKEND_URL}/api/card/${params.nis}`);
 		if (!response.ok) {
 			throw new Error('Failed to fetch data');
 		}
